@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+   <channel>
+      <title>Toast's RSS Feed?</title>
+      <link>https://blog.bajortski.net/</link>
+      <description>A test of RSS feeds using a template because I fucked it up last time...</description>
+      <language>en-us</language>
+      <pubDate>Wed, 2 Jul 2023 17:52</pubDate>
+      <lastBuildDate>Wed, 2 Jul 2023 17:52</lastBuildDate>
+      <docs>https://www.rssboard.org/rss-specification</docs>
+      <generator>Blosxom 2.1.2</generator>
+      <managingEditor>neil.armstrong@example.com (Neil Armstrong)</managingEditor>
+      <webMaster>sally.ride@example.com (Sally Ride)</webMaster>
+      <atom:link href="https://www.rssboard.org/files/sample-rss-2.xml" rel="self" type="application/rss+xml"/>
+      <item>
+         <title>This is an Entry</title>
+	 <link>https://blog.bajortski.net/</link>
+         <description>As part of the state's first Earth-to-space call, students from Louisiana will have an opportunity soon to hear from NASA astronauts aboard the International Space Station.</description>
+         <pubDate>Wed, 2 Jul 2023 17:52</pubDate>
+	 <guid>https://blog.bajortski.net/</guid>
+      </item>
+      <item>
+         <description>This is a description.</description>
+	 <link>https://blog.bajortski.net</link>
+         <pubDate>Wed, 2 Jul 2023 17:52</pubDate>
+         <guid>http://www.nasa.gov/press-release/nasa-awards-integrated-mission-operations-contract-iii</guid>
+      </item>
+      </item>
+   </channel>
+</rss>
+
