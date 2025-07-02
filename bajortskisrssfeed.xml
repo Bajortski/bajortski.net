@@ -1,26 +1,26 @@
 <rss version="2.0">
-	<channel>
-		<title>Toast's First RSS Feed?</title>
-		<link>https://links.bajortski.net/</link>
+<channel>
+	<title>Toast's First RSS Feed?</title>
+	<link>https://links.bajortski.net/</link>
+	<description>
+		This is my first try at making an RSS feed. I made it by hand in Nvim for some reason.
+	</description>
+	<languagge>en-us</language>
+	<pubDate>Wed, 4 Jul 2025 4:11 EST</pubdate>
+	<lastBuildDate>Wed, 4 Jul 2025 4:11 EST</lastBuildDate>
+	<category>RSS</category>
+	<generator>ToastsBeautifulHandsInNvim</generator>
+	<webMaster>bajortskiproton.me@proton.me (Toast Bajortski)</webMaster>
+	<item>
+		<title>
+			Title
+		</title>
 		<description>
-			This is my first try at making an RSS feed. I made it by hand in Nvim for some reason.
+			This is a description.
 		</description>
-		<languagge>en-us</language>
-		<pubDate>Wed, 4 Jul 2025 4:11 EST</pubdate>
-		<lastBuildDate>Wed, 4 Jul 2025 4:11 EST</lastBuildDate>
-		<category>RSS</category>
-		<generator>ToastsBeautifulHandsInNvim</generator>
-		<webMaster>bajortskiproton.me@proton.me (Toast Bajortski)</webMaster>
-		<item>
-			<title>
-				Title
-			</title>
-			<description>
-				This is a description.
-			</description>
-			<pubDate>Wed, 4 Jul 2025 4:11 EST</pubDate>
-			<guid>
-				https://blog.bajortski.net
-			</guid>
-		</item>
-	</channel>
+		<pubDate>Wed, 4 Jul 2025 4:11 EST</pubDate>
+		<guid>
+			https://blog.bajortski.net
+		</guid>
+	</item>
+</channel>
