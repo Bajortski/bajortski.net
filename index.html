@@ -29,7 +29,26 @@
     <title>bajortski.net</title>
     <link rel="stylesheet" href="stylesheet.css"/>
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
+    <script>
+        function markdownToHtml(markdown) {
+            return markdown
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>') // Convert H3
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>') // Convert H2
+                .replace(/^# (.+)$/gm, '<h1>$1</h1>') // Convert H1
+                .replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>') // Convert blockquotes
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // Convert bold
+                .replace(/\*(.+?)\*/g, '<em>$1</em>') // Convert italic
+                .replace(/\n/g, '<br>'); // Convert new lines to <br>
+        }
+
+        fetch('statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const htmlContent = markdownToHtml(markdown);
+                document.getElementById('markdown-content').innerHTML = htmlContent;
+            })
+            .catch(error => console.error('Error loading markdown:', error));
+    </script>
 </head>
 <body>
     <div class="container">
@@ -38,7 +57,9 @@
                 <tr>
                     <td colspan="4" rowspan="2" class="width-auto">
                         <h1>bajortski.net</h1>
-                        <zero-md src="https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md" class="marquee"></zero-md>
+                            <div class="marquee">
+                                <div id="markdown-content"></div>
+                            </div>
                     </td>
                 </tr>
                 <tr>
