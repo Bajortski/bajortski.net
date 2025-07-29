@@ -38,7 +38,6 @@
                 .replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>') // Convert blockquotes
                 .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // Convert bold
                 .replace(/\*(.+?)\*/g, '<em>$1</em>') // Convert italic
-                .replace(/\n/g, '<br>'); // Convert new lines to <br>
         }
 
         fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
