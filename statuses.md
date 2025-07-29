@@ -1,0 +1,33 @@
+At your discretion.
+Your platform is not my platform, stand on your own platform, there is not room for both of us on this soapbox.
+*The* Wise Owl Artist
+The world changes if you click it.
+Get tickets for The Tractor Pulled Disc Ploughs' seminal album for 60 percent off with TRACTORPULLED60
+In loving memory.
+It's not beautiful on it's own merits, it's beautiful because somebody made it.
+Now updated for the next generation.
+Fall in love... all over again.
+I’m not a deep thinker. I just cosplay as one.
+You’re either going to live forever, or die immediately.
+Each sold separately.
+The arrival you were waiting for, but didn’t want to see.
+Tracks with descriptions tend to get more plays and engagements.
+Drastic misinterpretation of the facts.
+Not packaged for individual sale.
+I love the kind of woman that will actually just kill me.
+Please insert cash or select payment type.
+My computer is my friend.
+To learn more, click here.
+The emptier your head, the more dreams you can stuff in it, y’know?
+Not all acts of evil are foolish. And not all acts of good are wise.
+Nice to meet you!
+Note: Relief is temporary.
+You can’t eat anything past a key.
+The thing that’s making you cry, unplug it.
+Repeat viewing may lead to a pregnancy.
+Are you feeling encrypted?
+Eat shit and die.
+How do you anarchist a Google.
+Voted #1 ANTM Wii fan account by the ANTM Wii Fan Club Association
+I can swear more if that's to your liking.
+DRIVERS LICENSES AND FACE PICS! GET THE FUCK IN HERE BEFORE THEY SHUT IT DOWN!
