@@ -492,3 +492,10 @@ label input {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.immutable-text {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+}

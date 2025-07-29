@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="en" />
+    <meta name="author" content="Toast Bajortski">
+    <title>ATproto</title>
+    <link rel="stylesheet" href="stylesheet.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <table class="header">
+                <tr>
+                    <h1>Pick Your ATproto Reader of Choice</h1>
+                    <div class="immutable-text" id="textField">Click to copy this text!</div>
+                    <script>
+                        document.getElementById('textField').addEventListener('click', function() {
+                            const text = this.innerText;
+                            navigator.clipboard.writeText(text).then(() => {
+                                alert('Text copied to clipboard: ' + text);
+                            }).catch(err => {
+                                console.error('Failed to copy text: ', err);
+                            });
+                        });
+                    </script>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
