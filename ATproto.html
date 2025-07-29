@@ -10,18 +10,30 @@
         <div class="content">
             <table class="header">
                 <tr>
-                    <h1>Pick Your ATproto Reader of Choice</h1>
-                    <div class="immutable-text" id="textField">Click to copy this text!</div>
-                    <script>
-                        document.getElementById('textField').addEventListener('click', function() {
-                            const text = this.innerText;
-                            navigator.clipboard.writeText(text).then(() => {
-                                alert('Text copied to clipboard: ' + text);
-                            }).catch(err => {
-                                console.error('Failed to copy text: ', err);
+                    <th colspan="3" rowspan="1" class="width-auto">
+                        <h1>Pick your ATproto reader of choice</h1>
+                        <div class="immutable-text" id="textField">did:plc:pikobv6h2fpzngsjh6myzdkb</div>
+                        <script>
+                            document.getElementById('textField').addEventListener('click', function() {
+                                const text = this.innerText;
+                                navigator.clipboard.writeText(text).then(() => {
+                                }).catch(err => {
+                                    console.error('Failed to copy text: ', err);
+                                });
                             });
-                        });
-                    </script>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width-min">
+                        <a href="https://bsky.app/profile/did:plc:pikobv6h2fpzngsjh6myzdkb/">bsky.app</a>
+                    </td>
+                    <td class="width-min">
+                        <a href="https://deer.social/profile/did:plc:pikobv6h2fpzngsjh6myzdkb/">deer.social</a>
+                    </td>
+                    <td class="width-min">
+                       <a href="https://pdsls.dev/at://did:plc:pikobv6h2fpzngsjh6myzdkb">pdsls.dev</a> 
+                    </td>
                 </tr>
             </table>
         </div>

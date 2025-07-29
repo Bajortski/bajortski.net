@@ -494,8 +494,6 @@ label input {
 }
 
 .immutable-text {
-  border: 1px solid #ccc;
-  padding: 10px;
   cursor: pointer;
   user-select: none;
 }
