@@ -31,3 +31,4 @@ How do you anarchist a Google.
 Voted #1 ANTM Wii fan account by the ANTM Wii Fan Club Association
 I can swear more if that's to your liking.
 DRIVERS LICENSES AND FACE PICS! GET THE FUCK IN HERE BEFORE THEY SHUT IT DOWN!
+It took me so long to get this working, you'd better be happy with it.
