@@ -471,7 +471,7 @@ label input {
 	overflow: hidden;
 }
 
-.marquee p {
+.marquee div {
   display: inline-block;
   animation: marquee 200s linear infinite;
 }
