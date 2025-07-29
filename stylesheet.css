@@ -473,7 +473,7 @@ label input {
 
 .marquee p {
   display: inline-block;
-  animation: marquee 15s linear infinite;
+  animation: marquee 240s linear infinite;
 }
 
 @keyframes marquee {
