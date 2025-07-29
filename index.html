@@ -32,12 +32,6 @@
     <script>
         function markdownToHtml(markdown) {
             return markdown
-                .replace(/^### (.+)$/gm, '<h3>$1</h3>') // Convert H3
-                .replace(/^## (.+)$/gm, '<h2>$1</h2>') // Convert H2
-                .replace(/^# (.+)$/gm, '<h1>$1</h1>') // Convert H1
-                .replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>') // Convert blockquotes
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // Convert bold
-                .replace(/\*(.+?)\*/g, '<em>$1</em>') // Convert italic
         }
 
         fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
