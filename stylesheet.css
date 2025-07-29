@@ -505,7 +505,7 @@ label input {
   position: relative;
   text-align: center;
   z-index: 1;
-  bottom: 5vw;
+  bottom: -40vw;
   font-size: 17px;
 }
 
