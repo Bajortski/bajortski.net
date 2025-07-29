@@ -26,8 +26,6 @@
                             document.getElementById('textField').addEventListener('click', function() {
                                 const text = this.innerText;
                                 navigator.clipboard.writeText(text).then(() => {
-                                }).catch(err => {
-                                    console.error('Failed to copy text: ', err);
                             });
                         </script>
                     </td>
@@ -55,7 +53,7 @@
         toast.style.visibility = "visible";
         setTimeout(() => {
             toast.style.visibility = "hidden";
-        }, 3000);
+        }, 1000);
         }
     </script>
 </body>
