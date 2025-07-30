@@ -1,13 +1,13 @@
 - At your discretion.
 - Your platform is not my platform, stand on your own platform, there is not room for both of us on this soapbox.
-= *The* Wise Owl Artist
+- *The* Wise Owl Artist
 - The world changes if you click it.
 - Get tickets for The Tractor Pulled Disc Ploughs' seminal album for 60 percent off with TRACTORPULLED60
 - In loving memory.
-= It's not beautiful on it's own merits, it's beautiful because somebody made it.
-= Now updated for the next generation.
-= Fall in love... all over again.
-= I’m not a deep thinker. I just cosplay as one.
+- It's not beautiful on it's own merits, it's beautiful because somebody made it.
+- Now updated for the next generation.
+- Fall in love... all over again.
+- I’m not a deep thinker. I just cosplay as one.
 - You’re either going to live forever, or die immediately.
 - Each sold separately.
 - The arrival you were waiting for, but didn’t want to see.
