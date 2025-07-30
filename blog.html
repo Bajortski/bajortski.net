@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<!--
+TODO:
+- [x] make table function as a header, not as the main content
+- [ ] link to template blog post
+-->
+
 <head>
     <meta charset="en" />
     <meta name="author" content="Toast Bajortski">
@@ -18,24 +25,38 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <table class="header">
-                <tr>
-                    <th colspan ="4" rowapan="1" class="width-auto">
-                        <h1>bajortski.net</h1>
-                    </th>
-                    <th class="width-auto"">version</th>
-                    <td class="width-auto">v1.3</td>
-                </tr>
-                <tr>
-                    <td colspan="6" rowspan="1" class="width-auto">
-                        <div class="marquee">
-                            <p id="markdown-content"></p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+    <table class="header">
+        <tr>
+            <th colspan="1" rowspan="1" class="width-min">
+                <a href="index.html">back</a>
+            </th>
+            <td colspan="1" rowapan="1" class="width-auto">
+                <h1>bajortski.net</h1>
+            </td>
+            <th class="width-auto"">version</th>
+            <td class="width-auto">v1.3</td>
+            </tr>
+            <tr>
+            <td colspan="6" rowspan="1" class="width-auto">
+                <div class="marquee-header">
+                    <p id="markdown-content"></p>
+                </div>
+            </td>
+            </tr>
+    </table>
+    <ul class="tree">
+    <li>
+    <p style="margin: 0;">
+    <strong>blog</strong>
+</p>
+    <ul class="incremental">
+        <li>
+            2025
+            <ul class="incremental">
+                <li>
+                    <a href="demo-blog.html">2025-07-30: demo blog post</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
 </body>

@@ -476,6 +476,20 @@ label input {
   animation: marquee 200s cubic-bezier(.44,.72,.43,.71);
 }
 
+.marquee-header {
+	box-sizing: inherit;
+	width: 49vw;
+	line-height: 0;
+	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.marquee-header p {
+  display: inline-block;
+  animation: marquee 200s cubic-bezier(.44,.72,.43,.71);
+}
+
 @keyframes marquee {
   0%   { transform: translate(0, 0); }
   100% { transform: translate(-100%, 0); }
@@ -507,8 +521,4 @@ label input {
   z-index: 1;
   bottom: -40vw;
   font-size: 17px;
-}
-
-zero-md {
-  color: #fff;
 }
