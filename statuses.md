@@ -34,3 +34,4 @@
 - It took me so long to get this working, you'd better be happy with it.
 - "Thomas the Tank Engine Rule 34"...
 - The game of life has many paths to win.
+- When I make something, I go out of my way to make sure it's the least approachable piece of media you'll ever consume. You won't understand any of the references I make and you won't get a citation out of me if it's the last thing I do.
