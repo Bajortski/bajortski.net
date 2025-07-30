@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="en" />
+    <meta name="author" content="Toast Bajortski">
+    <title>bajortski.net</title>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <script>
+        function markdownToHtml(markdown) {
+            return markdown
+        }
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const htmlContent = markdownToHtml(markdown);
+                document.getElementById('markdown-content').innerHTML = htmlContent;
+            })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <table class="header">
+                <tr>
+                    <th colspan ="4" rowapan="1" class="width-auto">
+                        <h1>bajortski.net</h1>
+                    </th>
+                    <th class="width-auto"">version</th>
+                    <td class="width-auto">v1.3</td>
+                </tr>
+                <tr>
+                    <td colspan="6" rowspan="1" class="width-auto">
+                        <div class="marquee">
+                            <p id="markdown-content"></p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
