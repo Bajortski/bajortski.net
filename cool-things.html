@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<!--
+TODO:
+- [ ]
+-->
+
+<head>
+    <meta charset="en" />
+    <meta name="author" content="Toast Bajortski">
+    <title>bajortski.net</title>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <script>
+        function markdownToHtml(markdown) {
+            return markdown
+        }
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const htmlContent = markdownToHtml(markdown);
+                document.getElementById('markdown-content').innerHTML = htmlContent;
+            })
+    </script>
+</head>
+<body>
+    <table class="header">
+        <tr>
+            <td colspan="1" rowspan="1" class="width-min">
+                <a href="blog.html">back</a>
+            </th>
+            <th colspan="3" rowspan="1" class="width-auto">
+                <h1 class="title">bajortski.net</h1>
+            </td>
+            <th>version</th>
+            <td class="width-min">v1.4</td>
+            </tr>
+            <tr>
+            <td colspan="6" rowspan="1" class="width-auto">
+                <div class="marquee-header">
+                    <p id="markdown-content"></p>
+                </div>
+            </td>
+            </tr>
+    </table>
+    <h1>Cool Websites</h1>
+    <ul>
+        <li>
+            <a href="https://neal.fun/">neal.fun</a>
+        </li>
+        <li>
+            
+        </li>
+    </ul>
+</body>
+                
