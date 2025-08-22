@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+   <channel>
+      <title>Toast's RSS Feed</title>
+      <link>http://www.bajortski.net</link>
+      <description>A RSS news feed containing all the latest and greatest in Toast related news.</description>
+      <language>en-us</language>
+      <pubDate>Fri, 22 Aug 2025 01:58 EST</pubDate>
+      <docs>https://www.rssboard.org/rss-specification</docs>
+      <generator>By Hand Motherfucker</generator>
+      <managingEditor>bajortskiproton.me@proton.me (Toast Bajortski)</managingEditor>
+      <webMaster>bajortskiproton.me@proton.me (Toast Bajortski)</webMaster>
+      <atom:link href="http://raw.githubusercontent.com/Bajortski/rss/refs/heads/main/sample-feed.xml" rel="self" type="application/rss+xml" />
+      <item>
+         <title>Sample Blog Post</title>
+      <link>http://bajortski.net/demo-blog-post</link>
+         <description>A demo blog post from bajortski.net</description>
+         <pubDate>Fri, 22 Aug 2025 01:58 EST</pubDate>
+      <guid>http://bajortski.net/demo-blog-post</guid>
+      </item>
+   </channel>
+</rss>
