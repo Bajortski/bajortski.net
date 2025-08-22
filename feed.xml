@@ -16,7 +16,7 @@
       <link>http://bajortski.net/demo-blog-post</link>
          <description>A demo blog post from bajortski.net</description>
          <pubDate>Fri, 22 Aug 2025 01:58 EST</pubDate>
-      <guid>http://bajortski.net/demo-blog-post</guid>
+      <guid isPermaLink="true">http://bajortski.net/demo-blog-post</guid>
       </item>
    </channel>
 </rss>
