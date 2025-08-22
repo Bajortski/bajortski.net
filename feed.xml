@@ -10,7 +10,7 @@
       <generator>By Hand Motherfucker</generator>
       <managingEditor>bajortskiproton.me@proton.me (Toast Bajortski)</managingEditor>
       <webMaster>bajortskiproton.me@proton.me (Toast Bajortski)</webMaster>
-      <atom:link href="http://raw.githubusercontent.com/Bajortski/rss/refs/heads/main/sample-feed.xml" rel="self" type="application/rss+xml" />
+      <atom:link href="https://bajortski.net/feed.xml" rel="self" type="application/rss+xml" />
       <item>
          <title>Sample Blog Post</title>
       <link>http://bajortski.net/demo-blog-post</link>
