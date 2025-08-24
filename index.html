@@ -26,19 +26,13 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-
         fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
             .then(response => response.text())
             .then(markdown => {
                 const statuses = parseStatuses(markdown);
                 shuffle(statuses);
-                const ul = document.getElementById('markdown-content');
-                ul.innerHTML = '';
-                statuses.forEach(status => {
-                    const li = document.createElement('li');
-                    li.textContent = status;
-                    ul.appendChild(li);
-                });
+                const joined = statuses.join('  &middot;  ');
+                document.getElementById('markdown-content').innerHTML = joined;
             });
     </script>
 </head>
@@ -50,7 +44,7 @@
                     <td colspan="4" rowspan="2" class="width-auto">
                         <h1 class="title">bajortski.net</h1>
                             <div class="marquee">
-                                <ul id="markdown-content"></ul>
+                                <p id="markdown-content"></p>
                             </div>
                     </td>
                 </tr>
