@@ -38,3 +38,5 @@
 - When I make something, I go out of my way to make sure it's the least approachable piece of media you'll ever consume. You won't understand any of the references I make and you won't get a citation out of me if it's the last thing I do.
 - Video killed the Radio Star
 - Knives are far too dangerous. They're like tiny, pointy, bullet-less guns.
+- I'm too broke to be an alcoholic!
+- I'm too self-conscious when I'm bowling.
