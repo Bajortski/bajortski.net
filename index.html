@@ -19,7 +19,6 @@
                 .filter(line => line.startsWith('- '))
                 .map(line => line.slice(2));
         }
-
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -34,6 +33,14 @@
                 const space = '&nbsp;'.repeat(4);
                 const joined = space + statuses.join('  &middot;  ');
                 document.getElementById('markdown-content').innerHTML = joined;
+            });
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
+            .then(response => response.text())
+            .then(version => {
+                const versionCell = document.getElementById('version-cell');
+                if (versionCell) {
+                    versionCell.textContent = version.trim();
+                }
             });
     </script>
 </head>
@@ -51,7 +58,7 @@
                 </tr>
                 <tr>
                     <th>version</th>
-                    <td class="width-min">v1.5</td>
+                    <td class="width-min" id="version-cell"></td>
                 </tr>
                 <tr>
                     <th class="width-auto">links</th>
@@ -65,7 +72,6 @@
                         <a href="https://signal.me/#eu/klYZWJMCRWorRhHPhOGNkXHooxxBYcNwzYV-Nlc2XgyaI-UJif5Kp6T-gPkug_bf">signal</a>
                     </td class="width-min">
                     <td class="width-min">
-                    <!-- When blog is finished, link here. -->
                     <a href="blog.html">blog</a>
                     </td>
                     <td>
