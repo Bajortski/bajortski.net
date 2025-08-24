@@ -16,11 +16,7 @@
             return markdown
                 .split('\n')
                 .map(line => line.trim())
-                .filter(line => line.startsWith('- '))
-                .map(line => line.slice(2));
-        }
-        function joinWithDash(array) {
-            return array.join(' - ');
+                .filter(line => line.length > 0);
         }
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -34,7 +30,7 @@
                 const statuses = parseStatuses(markdown);
                 shuffle(statuses);
                 const space = '&nbsp;'.repeat(4);
-                const joined = space + joinWithDash(statuses);
+                const joined = space + statuses.join('  -  ');
                 document.getElementById('markdown-content').innerHTML = joined;
             });
         fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
