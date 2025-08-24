@@ -31,7 +31,8 @@
             .then(markdown => {
                 const statuses = parseStatuses(markdown);
                 shuffle(statuses);
-                const joined = statuses.join('  &middot;  ');
+                const space = '&nbsp;'.repeat(4);
+                const joined = space + statuses.join('  &middot;  ');
                 document.getElementById('markdown-content').innerHTML = joined;
             });
     </script>
