@@ -473,7 +473,7 @@ label input {
 
 .marquee p {
   display: inline-block;
-  animation: marquee 500s cubic-bezier(.44,.72,.43,.71);
+  animation: marquee 500s cubic-bezier(.44,.72,.43,.71) infinite;
 }
 
 .marquee-header {
@@ -487,7 +487,7 @@ label input {
 
 .marquee-header p {
   display: inline-block;
-  animation: marquee 500s cubic-bezier(.44,.72,.43,.71);
+  animation: marquee 500s cubic-bezier(.44,.72,.43,.71) infinite;
 }
 
 @keyframes marquee {
