@@ -32,7 +32,13 @@
             .then(markdown => {
                 const statuses = parseStatuses(markdown);
                 shuffle(statuses);
-                document.getElementById('markdown-content').innerHTML = statuses.join('<br>');
+                const ul = document.getElementById('markdown-content');
+                ul.innerHTML = '';
+                statuses.forEach(status => {
+                    const li = document.createElement('li');
+                    li.textContent = status;
+                    ul.appendChild(li);
+                });
             });
     </script>
 </head>
@@ -44,7 +50,7 @@
                     <td colspan="4" rowspan="2" class="width-auto">
                         <h1 class="title">bajortski.net</h1>
                             <div class="marquee">
-                                <p id="markdown-content"></p>
+                                <ul id="markdown-content"></ul>
                             </div>
                     </td>
                 </tr>
