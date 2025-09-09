@@ -40,3 +40,6 @@ Video killed the Radio Star
 Knives are far too dangerous. They're like tiny, pointy, bullet-less guns.
 I'm too broke to be an alcoholic!
 I'm too self-conscious when I'm bowling.
+This game is not suitable for children or those who are easily disturbed. Individuals suffering from anxiety or depression may not have a safe experience playing this game.
+Your horns aren't built for goring and my skull is too thick. Bring it on.
+Nice to meet you.
