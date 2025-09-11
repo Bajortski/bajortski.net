@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="en" />
+    <meta name="author" content="Toast Bajortski">
+    <title>bajortski.net</title>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <script>
+        function parseStatuses(markdown) {
+            return markdown
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.startsWith('- '))
+                .map(line => line.slice(2));
+        }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const statuses = parseStatuses(markdown);
+                shuffle(statuses);
+                const space = '&nbsp;'.repeat(4);
+                const joined = space + statuses.join('  &middot;  ');
+                document.getElementById('markdown-content').innerHTML = joined;
+            });
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
+            .then(response => response.text())
+            .then(version => {
+                const versionCell = document.getElementById('version-cell');
+                if (versionCell) {
+                    versionCell.textContent = version.trim();
+                }
+            });
+    </script>
+</head>
+<body>
+    <table class="header">
+        <tr>
+            <td colspan="1" rowspan="1" class="width-min">
+                <a href="blog.html">back</a>
+            </th>
+            <th colspan="3" rowspan="1" class="width-auto">
+                <h1 class="title">bajortski.net</h1>
+            </td>
+            <th>version</th>
+            <td class="width-min" id="version-cell"></td>
+            </tr>
+            <tr>
+            <td colspan="6" rowspan="1" class="width-auto">
+                <div class="marquee-header">
+                    <p id="markdown-content"></p>
+                </div>
+            </td>
+            </tr>
+    </table>
+    <h1 class="subtitle">Demo</h1>
+    <ul class="incremental">
+    </ul>
+    <ol class="incremental" type="1">
+    </ol>
+    <table class="header">
+        <tr>
+            <td>
+                <img src="Meat Cleaver.svg" height="400" alt="Meat Cleaver" />
+            </td>
+            <th>
+                <img src="Winning Personality.svg" height="400" alt="Winning Personality" />
+            </th>
+        </tr>
+    </table>
+</body>
