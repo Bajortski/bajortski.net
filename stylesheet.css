@@ -464,7 +464,7 @@ label input {
 
 .marquee {
 	box-sizing: inherit;
-	width: 35vw;
+	width: 34vw;
 	line-height: 0;
 	color: white;
 	white-space: nowrap;
@@ -478,7 +478,7 @@ label input {
 
 .marquee-header {
 	box-sizing: inherit;
-	width: 49vw;
+	width: 100%;
 	line-height: 0;
 	color: white;
 	white-space: nowrap;
