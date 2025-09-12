@@ -469,6 +469,7 @@ label input {
 	color: white;
 	white-space: nowrap;
 	overflow: hidden;
+  min-width: 100%;
 }
 
 .marquee p {
