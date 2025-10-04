@@ -43,3 +43,9 @@ I'm too self-conscious when I'm bowling.
 This game is not suitable for children or those who are easily disturbed. Individuals suffering from anxiety or depression may not have a safe experience playing this game.
 Your horns aren't built for goring and my skull is too thick. Bring it on.
 Nice to meet you.
+I didn't realize how fucking awesome I am until right now.
+Follow your stupid fuckin' dreams.
+The dead deserve more dignity, not less. Dignity is all the dead possess.
+You’re not Nonsense at all, are you, ghostie? You wouldn’t want so many words if you were.
+Every day I wake up a little more linear, a little less lost, and one day I’ll be one of the women who says ‘I had the most charming dream,’ and I’ll mean it.
+You're pretty when you cry.
