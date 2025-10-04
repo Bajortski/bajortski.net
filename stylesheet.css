@@ -523,3 +523,7 @@ label input {
   bottom: -40vw;
   font-size: 17px;
 }
+
+.no-underline {
+  text-decoration: none;
+}
