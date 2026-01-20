@@ -60,11 +60,10 @@ body {
 
 @media screen and (max-width: 480px) {
   :root {
-    font-size: 16px;
+    font-size: 14px;
   }
   body {
     padding: var(--line-height) 1ch;
-    max-width: 60ch;
   }
 }
 
