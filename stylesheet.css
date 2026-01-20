@@ -1,7 +1,5 @@
-@import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2');
-
 :root {
-  --font-family: "JetBrains Mono", monospace;
+  --font-family: "Maple Mono NF", monospace;
   --line-height: 1.20rem;
   --border-thickness: 2px;
   --text-color: #000;
@@ -66,6 +64,7 @@ body {
   }
   body {
     padding: var(--line-height) 1ch;
+    max-width: 60ch;
   }
 }
 
