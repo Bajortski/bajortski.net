@@ -28,7 +28,7 @@ The thing that’s making you cry, unplug it.
 Repeat viewing may lead to a pregnancy.
 Are you feeling encrypted?
 Eat shit and die.
-How do you anarchist a Google.
+How do you anarchist a Google?
 Voted #1 ANTM Wii fan account by the ANTM Wii Fan Club Association
 I can swear more if that's to your liking.
 DRIVERS LICENSES AND FACE PICS! GET THE FUCK IN HERE BEFORE THEY SHUT IT DOWN!
