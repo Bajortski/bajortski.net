@@ -49,3 +49,7 @@ The dead deserve more dignity, not less. Dignity is all the dead possess.
 You’re not Nonsense at all, are you, ghostie? You wouldn’t want so many words if you were.
 Every day I wake up a little more linear, a little less lost, and one day I’ll be one of the women who says ‘I had the most charming dream,’ and I’ll mean it.
 You're pretty when you cry.
+The wizard needs food badly!
+So tell me, have you seen my comb?
+You are lucky! Full moon tonight.
+[TODO: Change script in everything that leverages this list to remove anything in square brackets so I can add attributions.]
