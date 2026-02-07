@@ -53,3 +53,6 @@ The wizard needs food badly!
 So tell me, have you seen my comb?
 You are lucky! Full moon tonight.
 [TODO: Change script in everything that leverages this list to remove anything in square brackets so I can add attributions.]
+The door resists!
+This dungeon is a pushoveer.
+It is now safe to turn off your computer.
