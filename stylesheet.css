@@ -177,7 +177,6 @@ hr:after {
 
 a {
   text-decoration-thickness: var(--border-thickness);
-  font-weight: 200;
 }
 
 a:link, a:visited {
@@ -591,4 +590,8 @@ label input {
 
 ul {
   column-count: 2;
+}
+
+a.inline-links {
+  font-weight: 200;
 }
