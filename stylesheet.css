@@ -79,8 +79,8 @@
   --background-color: #fff;
   --background-color-alt: #eee;
 
-  --font-weight-normal: 500;
-  --font-weight-medium: 600;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
   --font-weight-bold: 800;
 
   font-family: var(--font-family);
