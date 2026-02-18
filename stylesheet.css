@@ -597,3 +597,10 @@ label input {
 .no-underline {
   text-decoration: none;
 }
+
+.two-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two vertical columns */
+  gap: 0.5rem;
+  padding: 0;
+}
