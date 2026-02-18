@@ -1,6 +1,6 @@
 /* maple-mono-latin-100-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 100;
@@ -9,7 +9,7 @@
 
 /* maple-mono-latin-200-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 200;
@@ -18,7 +18,7 @@
 
 /* maple-mono-latin-300-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 300;
@@ -27,7 +27,7 @@
 
 /* maple-mono-latin-400-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 400;
@@ -36,7 +36,7 @@
 
 /* maple-mono-latin-500-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 500;
@@ -45,7 +45,7 @@
 
 /* maple-mono-latin-600-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 600;
@@ -54,7 +54,7 @@
 
 /* maple-mono-latin-700-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 700;
@@ -63,7 +63,7 @@
 
 /* maple-mono-latin-800-italic */
 @font-face {
-  font-family: 'Maple Mono';
+  font-family: 'maple mono';
   font-style: italic;
   font-display: swap;
   font-weight: 800;
@@ -71,7 +71,7 @@
 }
 
 :root {
-  --font-family: "Maple Mono", monospace;
+  --font-family: "maple mono", monospace;
   --line-height: 1.20rem;
   --border-thickness: 2px;
   --text-color: #000;
@@ -507,7 +507,7 @@ label input {
 .grid:has(> :last-child:nth-child(8)) { --grid-cells: 8; }
 .grid:has(> :last-child:nth-child(9)) { --grid-cells: 9; }
 
-/* DEBUG UTILITIES */
+/* debug utilities */
 
 .debug .debug-grid {
   --color: color-mix(in srgb, var(--text-color) 10%, var(--background-color) 90%);
@@ -598,10 +598,6 @@ label input {
   text-decoration: none;
 }
 
-.two-flex {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 12rem; /* you control how many items per column via height */
-  column-gap: 1rem;
+ul {
+  column-count: 2;
 }
