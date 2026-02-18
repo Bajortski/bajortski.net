@@ -590,6 +590,7 @@ label input {
 
 ul {
   column-count: 2;
+  float: center;
 }
 
 a.inline-links {
