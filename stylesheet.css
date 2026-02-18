@@ -540,6 +540,10 @@ label input {
 	white-space: nowrap;
 	overflow: hidden;
   min-width: 100%;
+  font-family: 'Maple Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100;
 }
 
 .marquee p {
