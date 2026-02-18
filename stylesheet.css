@@ -177,6 +177,7 @@ hr:after {
 
 a {
   text-decoration-thickness: var(--border-thickness);
+  font-weight: 200;
 }
 
 a:link, a:visited {
@@ -540,10 +541,7 @@ label input {
 	white-space: nowrap;
 	overflow: hidden;
   min-width: 100%;
-  font-family: 'Maple Mono';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100;
+  font-weight: 200;
 }
 
 .marquee p {
