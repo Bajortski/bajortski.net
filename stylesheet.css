@@ -583,17 +583,6 @@ label input {
   user-select: none;
 }
 
-#toast {
-  visibility: hidden;
-  color: #fff;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  z-index: 1;
-  bottom: -40vw;
-  font-size: 17px;
-}
-
 .no-underline {
   text-decoration: none;
 }
