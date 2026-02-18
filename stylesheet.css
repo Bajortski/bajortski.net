@@ -598,9 +598,10 @@ label input {
   text-decoration: none;
 }
 
-.two-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* two vertical columns */
-  gap: 0.5rem;
-  padding: 0;
+.two-flex {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 12rem; /* you control how many items per column via height */
+  column-gap: 1rem;
 }
