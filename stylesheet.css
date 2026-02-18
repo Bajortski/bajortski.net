@@ -342,6 +342,7 @@ ul ol,
 ul ul {
   padding: 0 0 0 3ch;
   margin: 0;
+  justify-content: center;
 }
 ol li:before { 
   content: counters(item, ".") ". ";
