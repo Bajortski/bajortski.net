@@ -56,3 +56,4 @@ You are lucky! Full moon tonight.
 The door resists!
 This dungeon is a pushoveer.
 It is now safe to turn off your computer.
+All this and more, tonight at 8, 7 central. I'm Dick Likely.
