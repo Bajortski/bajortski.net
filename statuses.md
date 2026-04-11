@@ -60,3 +60,5 @@ All this and more, tonight at 8, 7 central. I'm Dick Likely.
 Virtual friends just got real!
 Ladies and Junkies of the jury...
 Generic Sweetie Chocolate
+Don't worry about your strong objections. They've been duly noted and promptly ignored.
+Milk, pure white milk like the dirty, dirty milk whore I am
