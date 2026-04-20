@@ -1,134 +1,223 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="en" />
-    <meta name="author" content="Toast Bajortski">
-    <title>bajortski.net</title>
-    <link rel="stylesheet" href="stylesheet.css"/>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-    <script>
-        function parseStatuses(markdown) {
-            return markdown
-                .split('\n')
-                .map(line => line.trim())
-                .filter(line => line.length > 0);
-        }
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
-            .then(response => response.text())
-            .then(markdown => {
-                const statuses = parseStatuses(markdown);
-                shuffle(statuses);
-                const space = '&nbsp;'.repeat(4);
-                const joined = space + statuses.join('  -  ');
-                document.getElementById('markdown-content').innerHTML = joined;
-            });
-        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
-            .then(response => response.text())
-            .then(version => {
-                const versionCell = document.getElementById('version-cell');
-                if (versionCell) {
-                    versionCell.textContent = version.trim();
-                }
-            });
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2157705674677332"
-     crossorigin="anonymous"></script>
+  <meta charset="en" />
+  <meta name="author" content="Toast Bajortski">
+  <title>bajortski.net</title>
+  <link rel="stylesheet" href="stylesheet.css"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <script>
+  function parseStatuses(markdown) {
+    return markdown
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+  }
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+  fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+    .then(response => response.text())
+    .then(markdown => {
+      const statuses = parseStatuses(markdown);
+      shuffle(statuses);
+      const space = '&nbsp;'.repeat(4);
+      const joined = space + statuses.join('  -  ');
+      document.getElementById('markdown-content').innerHTML = joined;
+    });
+  fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
+    .then(response => response.text())
+    .then(version => {
+      const versionCell = document.getElementById('version-cell');
+      if (versionCell) {
+        versionCell.textContent = version.trim();
+      }
+    });
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2157705674677332"
+  crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <table class="header">
-                <tr>
-                    <td colspan="3" rowspan="2" class="width-auto"">
-                        <h1 class="title"><a class="no-underline" href="https://bajortski.net/">bajortski.net</a></h1>
-                            <div class="marquee">
-                                <p id="markdown-content"></p>
-                            </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>version</th>
-                    <td class="width-min" id="version-cell"></td>
-                </tr>
-                <tr>
-                    <th class="width-auto">links</th>
-                    <td>
-                        <a href="buttons.html" class="inline-links">88x31s</a>
-                    <td>
-                        <a href="cool-sites.html" class="inline-links">things</a>
-                    </td>
-                    <td>
-                        <a href="image-board.html" class="inline-links">gallery</a>
-                    </td>
-                    <td>
-                        <a href="https://blog.bajortski.net/" class="inline-links">blog</a>
-                    </td>
-                </tr>
-            </table>
-            <ul class="inline-links">
-                <li>
-                    youtube:
-                    <a href="https://youtube.com/@bajortski/" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                    bsky:
-                    <a href="https://bsky.app/profile/bajortski.net/" class="inline-links">bajortski.net</a>
-                </li>
-                <li>
-                    signal:
-                    <a href="https://signal.me/#eu/klYZWJMCRWorRhHPhOGNkXHooxxBYcNwzYV-Nlc2XgyaI-UJif5Kp6T-gPkug_bf" class="inline-links">bajortski.01</a>
-                </li>
-                <li>
-                    discord:
-                    <a href="https://discordapp.com/users/624980734607884309/" class="inline-links">@t04s7</a>
-                </li>
-                <li>
-                    monkeytype:
-                    <a href="https://monkeytype.com/profile/t04s7" class="inline-links">t04s7</a>
-                </li>
-                <li>
-                    last.fm:
-                    <a href="https://www.last.fm/user/Bajortski" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                    backloggd:
-                    <a href="https://backloggd.com/u/bajortski/" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                    steam:
-                    <a href="https://steamcommunity.com/id/bajortski/" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                    ko-fi:
-                    <a href="https://ko-fi.com/bajortski/" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                    my favourite font:
-                    <a href="https://font.subf.dev/en/" class="inline-links">maple mono</a>
-                </li>
-                <li>
-                    pronouns:
-                    <a href="https://en.pronouns.page/bajortski" class="inline-links">it/its</a>
-                </li>
-                <li>
-                    jstris:
-                    <a href="https://jstris.jezevec10.com/u/Bajortski" class="inline-links">bajortski</a>
-                </li>
-                <li>
-                  github:
-                  <a href="https://github.com/bajortski/" class="inline-links">bajortski</a>
-                </li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="content">
+      <table class="header">
+        <tr>
+          <td colspan="3" rowspan="2" class="width-auto"">
+            <h1 class="title"><a class="no-underline" href="https://bajortski.net/">bajortski.net</a></h1>
+            <div class="marquee">
+              <p id="markdown-content"></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>version</th>
+          <td class="width-min" id="version-cell"></td>
+        </tr>
+        <tr>
+          <th class="width-auto">links</th>
+          <td>
+            <a href="buttons.html" class="inline-links">88x31s</a>
+          <td>
+            <a href="cool-sites.html" class="inline-links">things</a>
+          </td>
+          <td>
+            <a href="image-board.html" class="inline-links">gallery</a>
+          </td>
+          <td>
+            <a href="https://blog.bajortski.net/" class="inline-links">blog</a>
+          </td>
+        </tr>
+      </table>
+      <ul class="inline-links">
+        <li>
+          youtube:
+          <a href="https://youtube.com/@bajortski/" class="inline-links">bajortski</a>
+        </li>
+        <li>
+          bsky:
+          <a href="https://bsky.app/profile/bajortski.net/" class="inline-links">bajortski.net</a>
+        </li>
+        <li>
+          signal:
+          <a href="https://signal.me/#eu/klYZWJMCRWorRhHPhOGNkXHooxxBYcNwzYV-Nlc2XgyaI-UJif5Kp6T-gPkug_bf" class="inline-links">bajortski.01</a>
+        </li>
+        <li>
+          discord:
+          <a href="https://discordapp.com/users/624980734607884309/" class="inline-links">@t04s7</a>
+        </li>
+        <li>
+          monkeytype:
+          <a href="https://monkeytype.com/profile/t04s7" class="inline-links">t04s7</a>
+        </li>
+        <li>
+          last.fm:
+          <a href="https://www.last.fm/user/Bajortski" class="inline-links">bajortski</a>
+        </li>
+        <li>
+          backloggd:
+          <a href="https://backloggd.com/u/bajortski/" class="inline-links">bajortski</a>
+        </li>
+        <li>
+          steam:
+          <a href="https://steamcommunity.com/id/bajortski/" class="inline-links">bajortski</a>
+        </li>
+        <li>
+          ko-fi:
+          <a href="https://ko-fi.com/bajortski/" class="inline-links">bajortski</a>
+        </li>
+        <li>
+          my favourite font:
+          <a href="https://font.subf.dev/en/" class="inline-links">maple mono</a>
+        </li>
+        <li>
+          pronouns:
+          <a href="https://en.pronouns.page/bajortski" class="inline-links">it/its</a>
+        </li>
+        <li>
+          jstris:
+          <a href="https://jstris.jezevec10.com/u/Bajortski" class="inline-links">bajortski</a>
+        </li
+      </ul>
     </div>
-  <footer>
-    <p style="text-align: center; font-size: smaller; margin-top: 1em;">
-      &copy; 2024-2026 Toast Bajortski. Rights.
-    </p>
-  </footer>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h2>My Gear</h2> 
+  <ul>
+    <li>
+      Laptop: 2024 Macbook Air M3 16gb 512gb
+    </li> 
+    <li>
+      Dock: <a href="https://www.amazon.com/dp/B0B28PCDM2?_encoding=UTF8&th=1">JSAUX Steam Deck Dock</a>
+    </li>
+    <li>
+      Keyboard: <a href="https://boardsource.xyz/products/lily58-mx-smt-pcb" class="inline-links">lily58</a>
+    </li>
+    <ul>
+      <li>
+        Switches: <a href="https://www.amazon.com/Switch-Linear-Gaming-Mechanical-Keyboard/dp/B0C7HY53Y1">MMD Cream</a>
+      </li>
+      <li>
+        Keycaps: <a href="https://www.cerakey.com/">Cerakey A Set & J Set</a>
+      </li>
+      <li>
+        Case: 3D printed in TPU
+      </li>
+    </ul>
+    <li>
+      Gaming Keyboard: <a href="https://wooting.io/wooting-60he">Wooting 60he</a>
+    </li>
+    <ul>
+      <li>
+        Case: <a href="https://kbdfans.com/products/tofu60-redux-case">Tofu60 Redux (E-White)</a>
+      </li>
+      <li>
+        Keycaps: Cheap Amazon XDA profile keycaps
+      </li>
+    </ul>
+    <li>
+      Deskmat: <a href="https://www.fangamer.com/collections/ena/products/ena-desk-mat">ENA Tempation Stairway Desk Mat)</a>
+    </li>
+    <li>
+      Steam Deck
+    </li>
+    <li>
+      Audio gear:
+    </li>
+    <ul>
+      <li>
+        Microphone: RØDE Podmic
+      </li>
+      <li>
+        Boom Arm: MountIt
+      </li>
+      <li>
+        Audio Interface: Scarlett Solo
+      </li>
+      <li>
+        Headphones: <a href="https://a.co/d/079WUKni">Sennheiser HD 200 Pro</a>
+      </li>
+      <li>
+        Wireless Earphones: Airpods Pro 2
+      </li>
+    </ul>
+    <li>
+      Phone: iPhone 13 Mini
+    </li>
+    <li>
+      Capture Card: <a href="https://www.genkithings.com/products/shadowcast-3-pro">Genki Shadowcast</a>
+    </li>
+    <li>
+      Gear Case: <a href="https://www.pelican.com/us/en/product/cases/protector/1450?sku=1450-000-110">Pelican 1450 Case</a>
+    </li>
+    <li>
+      Primary Controller: <a href="https://a.co/d/067QTig">8BitDo SN30 Pro</a>
+    </li>
+  </ul>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="marquee">
+  <p style="text-align: center">Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. Copyright ©️ 2026 Toast. All Rights Discarded. </p>
+  </div>
 </body>

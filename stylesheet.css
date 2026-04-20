@@ -596,3 +596,7 @@ ul {
 a.inline-links {
   font-weight: 200;
 }
+
+ul ul {
+  column-count: 1;
+}
