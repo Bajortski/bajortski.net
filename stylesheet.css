@@ -560,7 +560,7 @@ label input {
 
 .marquee-header p {
   display: inline-block;
-  animation: marquee 500s cubic-bezier(.44,.72,.43,.71) infinite;
+  animation: marquee 900s cubic-bezier(.44,.72,.43,.71) infinite;
 }
 
 @keyframes marquee {
@@ -591,6 +591,7 @@ label input {
 
 ul {
   column-count: 2;
+  column-gap: 1.3rem;
 }
 
 a.inline-links {
