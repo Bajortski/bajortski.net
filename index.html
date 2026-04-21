@@ -24,7 +24,7 @@
       const statuses = parseStatuses(markdown);
       shuffle(statuses);
       const space = '&nbsp;'.repeat(4);
-      const joined = space + statuses.join('  -  ');
+      const joined = space + statuses.join(' ◇ ');
       document.getElementById('markdown-content').innerHTML = joined;
     });
   fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
