@@ -57,3 +57,8 @@ The door resists!
 This dungeon is a pushoveer.
 It is now safe to turn off your computer.
 All this and more, tonight at 8, 7 central. I'm Dick Likely.
+Milk, pure white milk like the dirty, dirty milk whore I am
+I think something awaits for me in the divine for resisting.
+Life is effort and I'll stop when I die!
+I am my favourite person because I find these little bubbles of joy and I just pop them.
+I hate joy. I HATE IT!
