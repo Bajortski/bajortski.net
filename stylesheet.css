@@ -130,13 +130,12 @@ body {
   overflow-x: hidden;
 }
 
-@media (hover: none) and (pointer: coarse) {
-  :root { font-size: 14px; }
-  body { padding: var(--line-height) 1ch; }
-
-  .header {
-    table-layout: fixed;
-    width: 100%;
+@media screen and (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    padding: var(--line-height) 1ch;
   }
 }
 
