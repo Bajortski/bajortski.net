@@ -130,7 +130,7 @@ body {
   overflow-x: hidden;
 }
 
-@media screen and (max-width: 768px) {
+@media (hover: none) and (pointer: coarse) {
   :root { font-size: 14px; }
   body { padding: var(--line-height) 1ch; }
 
