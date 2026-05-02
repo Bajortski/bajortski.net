@@ -138,11 +138,6 @@ body {
     table-layout: fixed;
     width: 100%;
   }
-
-  .marquee {
-    width: 100%;
-    min-width: 0;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {
