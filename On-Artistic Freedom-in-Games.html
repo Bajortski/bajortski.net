@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="en" />
+    <meta name="author" content="Toast Bajortski">
+    <title>On Artistic Freedom in Games</title>
+    <link rel="stylesheet" href="stylesheet.css"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+    <script>
+        function parseStatuses(markdown) {
+            return markdown
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+        }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/statuses.md')
+            .then(response => response.text())
+            .then(markdown => {
+                const statuses = parseStatuses(markdown);
+                shuffle(statuses);
+                const space = '&nbsp;'.repeat(4);
+                const joined = space + statuses.join('  -  ');
+                document.getElementById('markdown-content').innerHTML = joined;
+            });
+        fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
+            .then(response => response.text())
+            .then(version => {
+                const versionCell = document.getElementById('version-cell');
+                if (versionCell) {
+                    versionCell.textContent = version.trim();
+                }
+            });
+    </script>
+</head>
+<body>
+  <table class="header">
+    <tr>
+      <td colspan="5" rowspan="1" class="width-auto">
+        <h1 class="title"><a class="no-underline" href="index.html">bajortski.net</a></h1>
+      </td>
+      <th>version</th>
+      <td class="width-min" id="version-cell"></td>
+    </tr>
+    <tr>
+      <td colspan="7">
+        <div class="marquee" class="marquee-header">
+          <p id="markdown-content"></p>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <h1>On Artistic Freedom in Games</h1>
+  <p>
+    I believe interactivity is the only thing that makes a game a game. We don't demand that films be enjoyable to be films, or that music be pleasant to be music; because we understand that art exists to communicate, not to entertain on command. Games shouldn't be any different.
+  </p>
+  <p>
+    I define a game (specifically computer games) as a piece of software that involves interaction between the user and a set of inputs through which the output can be influenced. If there is a defined goal, accurate interpretations of the outputs must be properly responded to in order to complete it.
+  </p>
+  <p>
+    This definition avoids mentioning an expressed goal, how one controls it, and what outputs a game must have. In my mind, a game does not need to have visuals (though it would in order for me to consider it a "video game"), sound, story, or even a goal (e.g. like Mountain, Elektroplankton, or Minecraft). The thing that makes it a game is *only the idea* that you're there, changing what happens through inputs. There are many ways in which this influences how I think about other types of software, and even things that others might consider games. An example of this difference in perspective would be how I categorize Visual Novels: I do not consider visual novels to be games as they can effectively be engaged with through practically no reactive input; you can effectively mash spacebar to get to the end of most VNs.
+  </p>
+  <p>
+    Games do not need to be anything but interactive because to require "fun" is to make the validity of a work in the medium overwhelmingly more subjective than pretty much any other artistic medium that exists. While many (some might even argue *most*) games, songs, paintings, etc. are created to elicit positive reactions from those engaging with them, there is no real reason to say that those positive reactions are core to the identity of their mediums. Preferring to spend time listening to music you enjoy does not make music you consider harsh or unpleasant any less music than the things you listen to. By that same notion, games that you don't enjoy shouldn't stop becoming games if you don't enjoy them. I would go as far as to say that this should also mean that even things that are created with the expressed intent of being unpleasant should have no bearing on how one defines the medium it falls into.
+  </p>
+  <p>
+    An artist is not required to make concessions for you if the thing they are looking to produce is meant to be purely "art." If an artist's goal is to produce art that also sells well, there are often concessions that come with that. If you are making something that is meant to be uncomfortable and difficult to sit through and complete, you are not obligated to make it so that those who cannot handle the discomfort or overcome the challenge you have set before them are given the options to take an easier path simply because they want it.
+  </p>
+  <p>
+    Another thing you don't need to do is make your works accessible beyond the time frame you want them to be accessible during. If you believe your game should be playable by people for a set period of time, only to be remembered and experienced through youtube lets-plays, you should be allowed to make that so. There should be nothing stopping you from making your art ephemeral if you believe it is important to the thing you want to make. A work's meaning is changed based on how long it's been since you last experienced it, and that on it's own makes a work that tries to explore the idea of something that you hold in the present once, and then can only remember forever.
+  </p>
+  <p>
+    Unnus Annus is a good example: a YouTube channel that had a set death date on which the channel would be deleted for good. The channel's mantra was "Memento mori." or "Remember what you have." I don't think it's that crazy to say that archiving a work like this (while basically inevitable when you publish it on the internet) flies in the face of what the creators were trying to achieve.
+  </p>
+  <p>
+    Some would argue that true ephemerality is impossible, so any attempt is meaningless. To that I say: even if that were the case (while one can't really prevent video capture of a game, there are plenty of ways to make a game itself ephemeral), the way one engages with a work if they know they can pick it up and finish it whenever inherently changes how they experience it. A concert feels different from a recording not because the music is better, but because you know it's happening in the way it is in the moment exactly *once*.
+  </p>
+  <p>
+    You are not obligated to make your works accessible. You are not obligated to make your works cheap. You are not obligated to make your works permanent. You are not obligated to make your works anything but what you want them to be.
+  </p>
+  <p>
+    But all of this freedom I wish for artists to have comes with one key problem: Doesn't all of this conflict with my rights as a consumer on some level? If an artist is selling a game that is intentionally frustrating, ephemeral, or in some other way outside of the norm, should they be required to disclose this up front on the store page? I would say the answer to that question depends on the work, but generally an artist should only be required to disclose their intention when it comes to a work's continued availability, and only if that work requires money to access. I believe it is on the individual to get the opinions of others who have given something a shot, and not on the artist to thoroughly explain their intent when it comes to why they omitted quality of life features, or made their game a certain way. I consider ephemeral works to be an exception to this because I believe a consumer has a right to know if the thing they're spending their money on is going to stick around, or if it's eventually going to be shut down. I believe suitable disclosure of this could be as little as putting a line in your terms of service saying that you reserve the rights to revoke access to a work.
+  </p>
+  <p>
+    I won't pretend these ideas resolve cleanly. There's a real friction between artistic freedom and consumer expectation that I don't think I can harmonize so much as I can express where I personally stand. Artists should have the room they need to make things that are hard, strange, or temporary–and that's going to ruffle some feathers. I think I'm okay with that.
+  </p>
+</body>

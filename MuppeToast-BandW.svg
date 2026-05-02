@@ -30,9 +30,13 @@
       .st2, .st6 {
         stroke-width: 2px;
       }
+
+      .st7 {
+        display: none;
+      }
     </style>
   </defs>
-  <g id="Layer_2">
+  <g id="Layer_2" class="st7">
     <rect width="367" height="378.04"/>
   </g>
   <g id="Layer_1">
