@@ -131,14 +131,17 @@ body {
 }
 
 @media screen and (max-width: 480px) {
-  :root {
-    font-size: 14px;
+  :root { font-size: 14px; }
+  body { padding: var(--line-height) 1ch; }
+
+  .header {
+    table-layout: fixed;
+    width: 100%;
   }
-  body {
-    padding: var(--line-height) 1ch;
-  }
-  ul {
-    column-count: 1;
+
+  .marquee {
+    width: 100%;
+    min-width: 0;
   }
 }
 
