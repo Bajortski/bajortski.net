@@ -589,7 +589,7 @@ label input {
   text-decoration: none;
 }
 
-ul {
+.duo-list {
   column-count: 2;
   column-gap: 1.3rem;
 }
