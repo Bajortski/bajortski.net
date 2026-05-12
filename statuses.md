@@ -65,3 +65,7 @@ I hate joy. I HATE IT!
 I hope we drown.
 Canada: Where everything is an experiment.
 YOU'LL FIND MY CORPSE OVER MY DEAD BODY
+"If you liked a girl and you asked her to go to a dance with you but somebody else already asked her first? What would you do?" ... He spoke: "Ask her to the *next* dance."
+Don't worry about your strong objections. They've been duly noted and promptly ignored.
+Virtual friends just got real!
+Go, my trusted champion! Die on the battlefield and win honour for me, and me alone!
