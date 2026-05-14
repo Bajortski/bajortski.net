@@ -69,3 +69,5 @@ YOU'LL FIND MY CORPSE OVER MY DEAD BODY
 Don't worry about your strong objections. They've been duly noted and promptly ignored.
 Virtual friends just got real!
 Go, my trusted champion! Die on the battlefield and win honour for me, and me alone!
+Sometimes you gotta shake it if you wanna keep it fresh.
+YOU'LL FIND MY CORPSE OVER MY DEAD BODY
