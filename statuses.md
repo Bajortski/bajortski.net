@@ -71,3 +71,5 @@ Virtual friends just got real!
 Go, my trusted champion! Die on the battlefield and win honour for me, and me alone!
 Sometimes you gotta shake it if you wanna keep it fresh.
 YOU'LL FIND MY CORPSE OVER MY DEAD BODY
+Sometimes you gotta shake it if you wanna keep it fresh.
+Not all cool things are popular.
