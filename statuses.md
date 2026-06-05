@@ -74,3 +74,4 @@ YOU'LL FIND MY CORPSE OVER MY DEAD BODY
 Sometimes you gotta shake it if you wanna keep it fresh.
 Not all cool things are popular.
 One for work, one for relaxation.
+Wizard needs food badly.
