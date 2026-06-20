@@ -554,7 +554,11 @@ label input {
 
 .marquee p {
   display: inline-block;
-  animation: marquee 900s cubic-bezier(.44,.72,.43,.71) infinite;
+  animation: marquee 900s linear infinite;
+}
+
+#markdown-content {
+  animation-duration: 60s;
 }
 
 .marquee-header {
