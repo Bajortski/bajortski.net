@@ -544,7 +544,7 @@ label input {
 .marquee {
 	box-sizing: inherit;
 	width: 34vw;
-	line-height: 0;
+	line-height: var(--line-height);
 	color: white;
 	white-space: nowrap;
 	overflow: hidden;
@@ -560,7 +560,7 @@ label input {
 .marquee-header {
 	box-sizing: inherit;
 	width: 100%;
-	line-height: 0;
+	line-height: var(--line-height);
 	color: white;
 	white-space: nowrap;
 	overflow: hidden;
