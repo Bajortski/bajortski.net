@@ -142,8 +142,9 @@ body {
     line-height: var(--line-height);
     overflow-wrap: anywhere;
   }
-  .marquee {
-    max-width: 100%;
+  .marquee,
+  .marquee-header {
+    display: none;
   }
 }
 
