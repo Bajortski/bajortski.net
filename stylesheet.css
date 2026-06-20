@@ -137,6 +137,14 @@ body {
   body {
     padding: var(--line-height) 1ch;
   }
+  .header .title {
+    font-size: 1.25rem;
+    line-height: var(--line-height);
+    overflow-wrap: anywhere;
+  }
+  .marquee {
+    max-width: 100%;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -570,14 +578,14 @@ label input {
 
 .container {
 	position: relative;
-    height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100vh;
 }
 
 .content {
-	position: absolute;
-    top: 47%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	width: 100%;
 }
 
 .immutable-text {
