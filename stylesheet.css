@@ -541,38 +541,31 @@ label input {
   text-align: right;
 }
 
-.marquee {
+.marquee,
+.marquee-header {
 	box-sizing: inherit;
-	width: 34vw;
+	position: relative;
+	width: 100%;
+	height: var(--line-height);
 	line-height: var(--line-height);
 	color: white;
 	white-space: nowrap;
 	overflow: hidden;
-  min-width: 100%;
-  font-weight: 200;
+	font-weight: 200;
 }
 
-.marquee p {
-  display: inline-block;
+.marquee p,
+.marquee-header p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  white-space: nowrap;
   animation: marquee 900s linear infinite;
 }
 
 #markdown-content {
-  animation-duration: 60s;
-}
-
-.marquee-header {
-	box-sizing: inherit;
-	width: 100%;
-	line-height: var(--line-height);
-	color: white;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.marquee-header p {
-  display: inline-block;
-  animation: marquee 900s cubic-bezier(.44,.72,.43,.71) infinite;
+  animation-duration: 450s;
 }
 
 @keyframes marquee {
