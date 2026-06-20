@@ -16,8 +16,8 @@ fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/head
     const statuses = parseStatuses(markdown);
     shuffle(statuses);
     const space = '&nbsp;'.repeat(4);
-    const joined = space + statuses.join('  \u25C7  ');
-    document.getElementById('markdown-content').innerHTML = joined;
+    const joined = statuses.join('  \u25C7  ') + '  \u25C7  ';
+    document.getElementById('markdown-content').innerHTML = joined + joined;
   });
 fetch('https://raw.githubusercontent.com/Bajortski/bajortski.github.io/refs/heads/main/version.md')
   .then(response => response.text())
