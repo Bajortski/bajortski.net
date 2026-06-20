@@ -142,10 +142,6 @@ body {
     line-height: var(--line-height);
     overflow-wrap: anywhere;
   }
-  .marquee,
-  .marquee-header {
-    display: none;
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -562,6 +558,7 @@ label input {
   left: 0;
   margin: 0;
   white-space: nowrap;
+  will-change: transform;
   animation: marquee 900s linear infinite;
 }
 

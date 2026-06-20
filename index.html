@@ -183,7 +183,12 @@
   </div>
   <script>
     const unit = "Copyright ©️ 2026 Toast. All Rights Discarded. ";
-    document.getElementById("copyright-marquee").textContent = unit.repeat(100);
+    const copyrightEl = document.getElementById("copyright-marquee");
+    copyrightEl.textContent = unit.repeat(100);
+    restartMarquee(copyrightEl);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => restartMarquee(copyrightEl));
+    }
   </script>
 	<p style="text-align: center">
 		source available on <a href="https://github.com/Bajortski/bajortski.net">github</a>
