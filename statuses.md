@@ -75,3 +75,5 @@ Sometimes you gotta shake it if you wanna keep it fresh.
 Not all cool things are popular.
 One for work, one for relaxation.
 Wizard needs food badly.
+Entering grode mode.
+Twenty-eight stab wounds!
