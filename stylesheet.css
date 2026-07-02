@@ -78,6 +78,8 @@
   --text-color-alt: #666;
   --background-color: #fff;
   --background-color-alt: #eee;
+  /* resolves at use site, so it tracks the theme unless overridden */
+  --accent-color: var(--text-color);
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -125,6 +127,20 @@
   :root:not([data-theme="dark"]) .light-only {
     display: block;
   }
+}
+/* JS-computed from actual background luminance (handles custom colours);
+   declared after the theme rules so it wins when set */
+:root[data-muppet="dark"] .dark-only {
+  display: block;
+}
+:root[data-muppet="dark"] .light-only {
+  display: none;
+}
+:root[data-muppet="light"] .dark-only {
+  display: none;
+}
+:root[data-muppet="light"] .light-only {
+  display: block;
 }
 
 * {
@@ -203,7 +219,7 @@ hr:after {
   top: calc(var(--line-height) / 2 - var(--border-thickness));
   left: 0;
   width: 100%;
-  border-top: calc(var(--border-thickness) * 3) double var(--text-color);
+  border-top: calc(var(--border-thickness) * 3) double var(--accent-color);
   height: 0;
 }
 
@@ -212,7 +228,7 @@ a {
 }
 
 a:link, a:visited {
-  color: var(--text-color);
+  color: var(--accent-color);
 }
 
 p {
@@ -245,7 +261,7 @@ table {
 }
 
 th, td {
-  border: var(--border-thickness) solid var(--text-color);
+  border: var(--border-thickness) solid var(--accent-color);
   padding: 
     calc((var(--line-height) / 2))
     calc(1ch - var(--border-thickness) / 2)
@@ -276,6 +292,10 @@ th {
 .header h1 {
   margin: 0;
 }
+/* the homepage link keeps the text colour rather than the accent */
+.title a:link, .title a:visited {
+  color: var(--text-color);
+}
 .header tr td:last-child {
   text-align: right;
 }
@@ -298,7 +318,7 @@ img {
 }
 
 details {
-  border: var(--border-thickness) solid var(--text-color);
+  border: var(--border-thickness) solid var(--accent-color);
   padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
   margin-bottom: var(--line-height);
 }
@@ -396,7 +416,7 @@ li::marker {
 }
 
 input, button, textarea {
-  border: var(--border-thickness) solid var(--text-color);
+  border: var(--border-thickness) solid var(--accent-color);
   padding: 
     calc(var(--line-height) / 2 - var(--border-thickness))
     calc(1ch - var(--border-thickness));
@@ -494,7 +514,7 @@ label input {
   position: relative;
   padding-left: 1.5ch;
   margin-left: 1.5ch;
-  border-left: var(--border-thickness) solid var(--text-color);
+  border-left: var(--border-thickness) solid var(--accent-color);
 }
 .tree ul li:before {
   position: absolute;
@@ -503,7 +523,7 @@ label input {
   left: 0;
   content: "";
   width: 1ch;
-  border-bottom: var(--border-thickness) solid var(--text-color);
+  border-bottom: var(--border-thickness) solid var(--accent-color);
 }
 .tree ul li:last-child {
   border-left: none;
@@ -515,7 +535,7 @@ label input {
   left: 0;
   content: "";
   height: calc(var(--line-height) / 2);
-  border-left: var(--border-thickness) solid var(--text-color);
+  border-left: var(--border-thickness) solid var(--accent-color);
 }
 
 .grid {
@@ -626,6 +646,32 @@ label input {
 
 a.inline-links {
   font-weight: 200;
+}
+
+.colour-picker {
+  text-align: center;
+  font-weight: 200;
+  margin: var(--line-height) 0;
+}
+#colour-picker-panel {
+  margin-top: calc(var(--line-height) / 2);
+}
+#colour-picker-panel label {
+  display: inline-block;
+  width: auto;
+  margin: 0 1ch;
+}
+#colour-picker-panel input[type="color"] {
+  width: 6ch;
+  height: calc(var(--line-height) * 1.5);
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: middle;
+  cursor: pointer;
+}
+#colour-picker-panel a {
+  margin: 0 1ch;
 }
 
 ul ul {
