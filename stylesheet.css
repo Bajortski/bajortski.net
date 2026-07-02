@@ -109,40 +109,6 @@
   --background-color-alt: #111;
 }
 
-/* theme-conditional elements (e.g. light/dark image variants) */
-.light-only {
-  display: none;
-  margin-top: 0;
-}
-:root[data-theme="light"] .dark-only {
-  display: none;
-}
-:root[data-theme="light"] .light-only {
-  display: block;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .dark-only {
-    display: none;
-  }
-  :root:not([data-theme="dark"]) .light-only {
-    display: block;
-  }
-}
-/* JS-computed from actual background luminance (handles custom colours);
-   declared after the theme rules so it wins when set */
-:root[data-muppet="dark"] .dark-only {
-  display: block;
-}
-:root[data-muppet="dark"] .light-only {
-  display: none;
-}
-:root[data-muppet="light"] .dark-only {
-  display: none;
-}
-:root[data-muppet="light"] .light-only {
-  display: block;
-}
-
 * {
   box-sizing: border-box;
 }
