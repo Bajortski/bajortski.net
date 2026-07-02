@@ -1,11 +1,11 @@
+// Relative paths in JS-set hrefs and fetches resolve against the page's own
+// directory, so pages in subfolders (blog/) need a prefix back to the root.
+const SITE_ROOT = location.pathname.includes('/blog/') ? '../' : '';
+
 // Theme: follows system unless overridden via the "t" keybind or by setting custom colours
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light' || savedTheme === 'dark') {
   document.documentElement.dataset.theme = savedTheme;
-}
-function effectiveTheme() {
-  return document.documentElement.dataset.theme ||
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 }
 // <input type="color"> and hex parsing only accept #rrggbb
 function normalizeHex(c) {
@@ -14,24 +14,6 @@ function normalizeHex(c) {
     ? '#' + [...c.slice(1)].map(x => x + x).join('')
     : c;
 }
-function bgIsDark() {
-  const bg = normalizeHex(getComputedStyle(document.documentElement).getPropertyValue('--background-color'));
-  const r = parseInt(bg.slice(1, 3), 16);
-  const g = parseInt(bg.slice(3, 5), 16);
-  const b = parseInt(bg.slice(5, 7), 16);
-  if ([r, g, b].some(isNaN)) return effectiveTheme() === 'dark';
-  return 0.299 * r + 0.587 * g + 0.114 * b < 128; // perceived brightness
-}
-// Picks svg based on light or dark mode
-function updateArtwork() {
-  const dark = bgIsDark();
-  document.documentElement.dataset.muppet = dark ? 'dark' : 'light';
-  const icon = document.querySelector('link[rel="icon"]');
-  if (icon) {
-    icon.href = dark ? 'MuppeToast-BandW.svg' : 'MuppeToast-BandW-Inverted.svg';
-  }
-}
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateArtwork);
 // Custom colours: picked via the "colours" button, stored in localStorage, applied as inline styles on <html> so they beat both theme palettes.
 // Alt shades are derived from the two picked colours with the same ratios
 // as the stock palettes (#666/#aaa and #eee/#111).
@@ -57,12 +39,10 @@ if (savedColors && savedColors.primary) {
   localStorage.setItem('customColors', JSON.stringify(savedColors));
 }
 if (savedColors) applyColors(savedColors);
-updateArtwork();
 
 function clearColors() {
   applyColors(null);
   localStorage.removeItem('customColors');
-  updateArtwork();
 }
 
 document.addEventListener('keydown', e => {
@@ -88,7 +68,7 @@ document.addEventListener('keydown', e => {
 const SITE_HEADER = `<table class="header">
   <tr>
     <td colspan="5" rowspan="1" class="width-auto">
-      <h1 class="title"><a class="no-underline" href="index.html">bajortski.net</a></h1>
+      <h1 class="title"><a class="no-underline" href="${SITE_ROOT}index.html">bajortski.net</a></h1>
     </td>
     <th>version</th>
     <td class="width-min" id="version-cell"></td>
@@ -146,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = { text: text.value, background: background.value, accent: accent.value };
     applyColors(colors);
     localStorage.setItem('customColors', JSON.stringify(colors));
-    updateArtwork();
   }
   text.addEventListener('input', save);
   background.addEventListener('input', save);
@@ -178,7 +157,7 @@ function restartMarquee(el) {
   el.style.animation = '';
 }
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('statuses.md')
+  fetch(SITE_ROOT + 'statuses.md')
     .then(response => response.text())
     .then(markdown => {
       const statuses = parseStatuses(markdown);
@@ -192,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.fonts.ready.then(() => restartMarquee(el));
       }
     });
-  fetch('version.md')
+  fetch(SITE_ROOT + 'version.md')
     .then(response => response.text())
     .then(version => {
       const versionCell = document.getElementById('version-cell');
