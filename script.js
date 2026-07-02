@@ -1,5 +1,4 @@
-// Theme: follows system unless overridden via the "t" keybind.
-// The override lives in localStorage and is applied before first paint.
+// Theme: follows system unless overridden via the "t" keybind or by setting custom colours
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light' || savedTheme === 'dark') {
   document.documentElement.dataset.theme = savedTheme;
@@ -23,8 +22,7 @@ function bgIsDark() {
   if ([r, g, b].some(isNaN)) return effectiveTheme() === 'dark';
   return 0.299 * r + 0.587 * g + 0.114 * b < 128; // perceived brightness
 }
-// Pick the muppet variant (page art + favicon) with the most contrast
-// against the actual background, whether themed or custom.
+// Picks svg based on light or dark mode
 function updateArtwork() {
   const dark = bgIsDark();
   document.documentElement.dataset.muppet = dark ? 'dark' : 'light';
@@ -34,8 +32,7 @@ function updateArtwork() {
   }
 }
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateArtwork);
-// Custom colours: picked via the "colours" button, stored in localStorage,
-// applied as inline styles on <html> so they beat both theme palettes.
+// Custom colours: picked via the "colours" button, stored in localStorage, applied as inline styles on <html> so they beat both theme palettes.
 // Alt shades are derived from the two picked colours with the same ratios
 // as the stock palettes (#666/#aaa and #eee/#111).
 function applyColors(colors) {
@@ -56,7 +53,6 @@ function applyColors(colors) {
 }
 let savedColors = JSON.parse(localStorage.getItem('customColors') || 'null');
 if (savedColors && savedColors.primary) {
-  // migrate pre-rename saves ({primary, secondary})
   savedColors = { text: savedColors.primary, background: savedColors.secondary };
   localStorage.setItem('customColors', JSON.stringify(savedColors));
 }
@@ -88,9 +84,7 @@ document.addEventListener('keydown', e => {
   clearColors();
 });
 
-// Shared page header: pages carry a <div id="site-header"></div> placeholder
-// that gets replaced with this markup, so the header is edited in one place.
-// (index.html has its own variant and no placeholder.)
+// Shared page header
 const SITE_HEADER = `<table class="header">
   <tr>
     <td colspan="5" rowspan="1" class="width-auto">
@@ -108,10 +102,7 @@ const SITE_HEADER = `<table class="header">
   </tr>
 </table>`;
 
-// Header injection + colour picker UI. Registered before the content fetches
-// below so the header's elements exist by the time their callbacks run.
-// The picker UI only appears on the homepage; the saved palette still
-// applies everywhere.
+// Header injection + colour picker UI.
 document.addEventListener('DOMContentLoaded', () => {
   const placeholder = document.getElementById('site-header');
   if (placeholder) {
@@ -179,9 +170,7 @@ function parseStatuses(markdown) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
-// Re-trigger a marquee's CSS animation once its width is final, so the
-// translate(-50%) keyframe is resolved against real content rather than an
-// empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).
+// Re-trigger a marquee's CSS animation once its width is final, so the translate(-50%) keyframe is resolved against real content rather than an empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).
 function restartMarquee(el) {
   if (!el) return;
   el.style.animation = 'none';
