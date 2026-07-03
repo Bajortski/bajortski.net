@@ -622,22 +622,90 @@ a.inline-links {
 #colour-picker-panel {
   margin-top: calc(var(--line-height) / 2);
 }
-#colour-picker-panel label {
-  display: inline-block;
-  width: auto;
+#colour-picker-panel a {
   margin: 0 1ch;
 }
-#colour-picker-panel input[type="color"] {
-  width: 6ch;
+#colour-swatches {
+  margin: 0;
+}
+.colour-swatch {
+  height: auto;
+  width: auto;
+  padding: 0 0.5ch;
+  margin: 0 0.5ch;
+  border: none;
+  background: transparent;
+  text-transform: none;
+  font-weight: 200;
+  line-height: var(--line-height);
+}
+.colour-swatch[aria-pressed="true"] {
+  background: var(--text-color);
+  color: var(--background-color);
+}
+.colour-swatch .swatch {
+  display: inline-block;
+  width: 3ch;
+  height: calc(var(--line-height) - var(--border-thickness));
+  margin: 0;
+  border: var(--border-thickness) solid var(--accent-color);
+  vertical-align: text-bottom;
+}
+#colour-picker-panel .colour-slider,
+#colour-picker-panel .colour-hex {
+  margin: calc(var(--line-height) / 2) 0 0;
+}
+#colour-picker-panel .colour-slider label,
+#colour-picker-panel .colour-hex label {
+  display: inline-block;
+  width: 2ch;
+  margin: 0;
+  font-weight: 200;
+}
+#colour-picker-panel input[type="text"] {
+  width: 9ch;
   height: calc(var(--line-height) * 1.5);
+  padding: 0 1ch;
+  margin: 0;
+  vertical-align: middle;
+}
+#colour-picker-panel input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20ch;
+  height: var(--line-height);
   margin: 0;
   padding: 0;
   border: none;
+  background: transparent;
   vertical-align: middle;
   cursor: pointer;
 }
-#colour-picker-panel a {
-  margin: 0 1ch;
+/* --track is a per-channel gradient set from JS */
+#colour-picker-panel input[type="range"]::-webkit-slider-runnable-track {
+  height: calc(var(--line-height) / 2 + var(--border-thickness) * 2);
+  background: var(--track, var(--background-color-alt));
+  border: var(--border-thickness) solid var(--accent-color);
+}
+#colour-picker-panel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1ch;
+  height: var(--line-height);
+  margin-top: calc(var(--border-thickness) * 2 - var(--line-height) / 4);
+  background: var(--text-color);
+  border: none;
+}
+#colour-picker-panel input[type="range"]::-moz-range-track {
+  height: calc(var(--line-height) / 2 + var(--border-thickness) * 2);
+  background: var(--track, var(--background-color-alt));
+  border: var(--border-thickness) solid var(--accent-color);
+}
+#colour-picker-panel input[type="range"]::-moz-range-thumb {
+  width: 1ch;
+  height: var(--line-height);
+  background: var(--text-color);
+  border: none;
+  border-radius: 0;
 }
 
 ul ul {
