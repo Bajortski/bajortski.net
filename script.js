@@ -228,6 +228,40 @@ function parseStatuses(markdown) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
+// The header muppet lives in images/muppet-header.svg so it can be re-exported
+// from Illustrator without touching the HTML. It's fetched and inlined (an
+// <img>-loaded SVG is a separate document that page CSS variables can't
+// reach), then themed: strokes take the text colour, fills the background
+// colour, and every selector is scoped to the svg since inline SVG styles are
+// document-global. Handles both Illustrator export modes (internal CSS and
+// presentation attributes), so a fresh export works unmodified.
+function themeMuppet(svgText) {
+  const doc = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+  if (doc.querySelector('parsererror')) return null;
+  const svg = doc.documentElement;
+  svg.id = 'muppet-header';
+  svg.setAttribute('height', '250');
+  svg.removeAttribute('width');
+  svg.setAttribute('style', 'display: block; width: 100%;');
+
+  const style = svg.querySelector('style');
+  if (style) {
+    style.textContent = style.textContent
+      .replace(/stroke:(?!\s*none)[^;}]+/g, 'stroke: var(--text-color)')
+      .replace(/fill:(?!\s*none)[^;}]+/g, 'fill: var(--background-color)')
+      .replace(/(^|\})([^{}]+)\{/g, (_, close, sel) =>
+        close + sel.split(',').map(s => '#muppet-header ' + s.trim()).join(', ') + ' {') +
+      // unclassed shapes default to a black fill; they occlude lines behind them
+      '\n#muppet-header path, #muppet-header polygon { fill: var(--background-color); }';
+  }
+  for (const el of svg.querySelectorAll('[stroke]')) {
+    if (el.getAttribute('stroke') !== 'none') el.setAttribute('stroke', 'var(--text-color)');
+  }
+  for (const el of svg.querySelectorAll('[fill]')) {
+    if (el.getAttribute('fill') !== 'none') el.setAttribute('fill', 'var(--background-color)');
+  }
+  return svg;
+}
 // Re-trigger a marquee's CSS animation once its width is final, so the translate(-50%) keyframe is resolved against real content rather than an empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).
 function restartMarquee(el) {
   if (!el) return;
@@ -236,6 +270,15 @@ function restartMarquee(el) {
   el.style.animation = '';
 }
 document.addEventListener('DOMContentLoaded', () => {
+  const muppetSlot = document.getElementById('muppet-slot');
+  if (muppetSlot) {
+    fetch(SITE_ROOT + 'images/muppet-header.svg')
+      .then(response => response.text())
+      .then(svgText => {
+        const svg = themeMuppet(svgText);
+        if (svg) muppetSlot.replaceChildren(svg);
+      });
+  }
   fetch(SITE_ROOT + 'statuses.md')
     .then(response => response.text())
     .then(markdown => {
