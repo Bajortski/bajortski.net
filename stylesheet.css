@@ -78,8 +78,6 @@
   --text-color-alt: #666;
   --background-color: #fff;
   --background-color-alt: #eee;
-  /* resolves at use site, so it tracks the theme unless overridden */
-  --accent-color: var(--text-color);
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -185,7 +183,7 @@ hr:after {
   top: calc(var(--line-height) / 2 - var(--border-thickness));
   left: 0;
   width: 100%;
-  border-top: calc(var(--border-thickness) * 3) double var(--accent-color);
+  border-top: calc(var(--border-thickness) * 3) double var(--text-color);
   height: 0;
 }
 
@@ -194,7 +192,7 @@ a {
 }
 
 a:link, a:visited {
-  color: var(--accent-color);
+  color: var(--text-color);
 }
 
 p {
@@ -227,7 +225,7 @@ table {
 }
 
 th, td {
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
   padding: 
     calc((var(--line-height) / 2))
     calc(1ch - var(--border-thickness) / 2)
@@ -258,10 +256,6 @@ th {
 .header h1 {
   margin: 0;
 }
-/* the homepage link keeps the text colour rather than the accent */
-.title a:link, .title a:visited {
-  color: var(--text-color);
-}
 .header tr td:last-child {
   text-align: right;
 }
@@ -284,7 +278,7 @@ img {
 }
 
 details {
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
   padding: calc(var(--line-height) - var(--border-thickness)) 1ch;
   margin-bottom: var(--line-height);
 }
@@ -382,7 +376,7 @@ li::marker {
 }
 
 input, button, textarea {
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
   padding: 
     calc(var(--line-height) / 2 - var(--border-thickness))
     calc(1ch - var(--border-thickness));
@@ -480,7 +474,7 @@ label input {
   position: relative;
   padding-left: 1.5ch;
   margin-left: 1.5ch;
-  border-left: var(--border-thickness) solid var(--accent-color);
+  border-left: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:before {
   position: absolute;
@@ -489,7 +483,7 @@ label input {
   left: 0;
   content: "";
   width: 1ch;
-  border-bottom: var(--border-thickness) solid var(--accent-color);
+  border-bottom: var(--border-thickness) solid var(--text-color);
 }
 .tree ul li:last-child {
   border-left: none;
@@ -501,7 +495,7 @@ label input {
   left: 0;
   content: "";
   height: calc(var(--line-height) / 2);
-  border-left: var(--border-thickness) solid var(--accent-color);
+  border-left: var(--border-thickness) solid var(--text-color);
 }
 
 .grid {
@@ -648,7 +642,7 @@ a.inline-links {
   width: 3ch;
   height: calc(var(--line-height) - var(--border-thickness));
   margin: 0;
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
   vertical-align: text-bottom;
 }
 #colour-picker-panel .colour-slider,
@@ -685,7 +679,7 @@ a.inline-links {
 #colour-picker-panel input[type="range"]::-webkit-slider-runnable-track {
   height: calc(var(--line-height) / 2 + var(--border-thickness) * 2);
   background: var(--track, var(--background-color-alt));
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
 }
 #colour-picker-panel input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -698,7 +692,7 @@ a.inline-links {
 #colour-picker-panel input[type="range"]::-moz-range-track {
   height: calc(var(--line-height) / 2 + var(--border-thickness) * 2);
   background: var(--track, var(--background-color-alt));
-  border: var(--border-thickness) solid var(--accent-color);
+  border: var(--border-thickness) solid var(--text-color);
 }
 #colour-picker-panel input[type="range"]::-moz-range-thumb {
   width: 1ch;

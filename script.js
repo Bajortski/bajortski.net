@@ -50,18 +50,20 @@ function applyColors(colors) {
     s.removeProperty('--text-color-alt');
     s.removeProperty('--background-color');
     s.removeProperty('--background-color-alt');
-    s.removeProperty('--accent-color');
     return;
   }
-  s.setProperty('--text-color', colors.text);
+  s.setProperty('--text-color', colors.foreground);
   s.setProperty('--background-color', colors.background);
-  s.setProperty('--accent-color', colors.accent || colors.text);
-  s.setProperty('--text-color-alt', `color-mix(in srgb, ${colors.text} 65%, ${colors.background})`);
-  s.setProperty('--background-color-alt', `color-mix(in srgb, ${colors.background} 93%, ${colors.text})`);
+  s.setProperty('--text-color-alt', `color-mix(in srgb, ${colors.foreground} 65%, ${colors.background})`);
+  s.setProperty('--background-color-alt', `color-mix(in srgb, ${colors.background} 93%, ${colors.foreground})`);
 }
 let savedColors = JSON.parse(localStorage.getItem('customColors') || 'null');
-if (savedColors && savedColors.primary) {
-  savedColors = { text: savedColors.primary, background: savedColors.secondary };
+// migrate palettes saved under older key names
+if (savedColors && (savedColors.primary || savedColors.text)) {
+  savedColors = {
+    foreground: savedColors.primary || savedColors.text,
+    background: savedColors.secondary || savedColors.background,
+  };
   localStorage.setItem('customColors', JSON.stringify(savedColors));
 }
 if (savedColors) applyColors(savedColors);
@@ -123,9 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '<a href="#" id="colour-picker-toggle" class="inline-links">colours</a>' +
     '<div id="colour-picker-panel" hidden>' +
       '<div id="colour-swatches">' +
-        '<button type="button" class="colour-swatch" data-colour="text">text <span class="swatch"></span></button>' +
+        '<button type="button" class="colour-swatch" data-colour="foreground">foreground <span class="swatch"></span></button>' +
         '<button type="button" class="colour-swatch" data-colour="background">background <span class="swatch"></span></button>' +
-        '<button type="button" class="colour-swatch" data-colour="accent">accent <span class="swatch"></span></button>' +
       '</div>' +
       '<div class="colour-slider"><label for="colour-h">h</label><input type="range" id="colour-h" min="0" max="360"></div>' +
       '<div class="colour-slider"><label for="colour-s">s</label><input type="range" id="colour-s" min="0" max="100"></div>' +
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hexEl = document.getElementById('colour-hex');
 
   const colours = {};
-  let selected = 'text';
+  let selected = 'foreground';
 
   // slider tracks preview each channel around the current colour
   function paintTracks() {
@@ -173,11 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // pull the live palette off the page (stock theme or saved custom colours)
   function syncFromPage() {
     const style = getComputedStyle(document.documentElement);
-    colours.text = normalizeHex(style.getPropertyValue('--text-color'));
+    colours.foreground = normalizeHex(style.getPropertyValue('--text-color'));
     colours.background = normalizeHex(style.getPropertyValue('--background-color'));
-    // --accent-color may be an unresolved var() reference; fall back to text
-    const accentValue = normalizeHex(style.getPropertyValue('--accent-color'));
-    colours.accent = /^#[0-9a-fA-F]{6}$/.test(accentValue) ? accentValue : colours.text;
     loadSelected();
   }
   function save() {
