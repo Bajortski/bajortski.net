@@ -78,3 +78,4 @@ Wizard needs food badly.
 Entering grode mode.
 Twenty-eight stab wounds!
 You can shove your distinctions up my through hole.
+Act while you have the urge so you can improve your tomorrow.
