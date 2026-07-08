@@ -7,6 +7,10 @@ const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light' || savedTheme === 'dark') {
   document.documentElement.dataset.theme = savedTheme;
 }
+// The inline head script painted a placeholder background so the canvas isn't
+// white while the stylesheet downloads. This script runs after that stylesheet
+// (blocking scripts wait for earlier CSS), so the palette takes over from here.
+document.documentElement.style.removeProperty('background-color');
 // hex parsing only accepts #rrggbb
 function normalizeHex(c) {
   c = c.trim();
@@ -285,7 +289,15 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.text())
       .then(svgText => {
         const svg = themeMuppet(svgText);
-        if (svg) muppetSlot.replaceChildren(svg);
+        if (!svg) return;
+        muppetSlot.replaceChildren(svg);
+        // Hold the draw-in until the page has fully loaded so the muppet
+        // doesn't start (or worse, finish) while everything else is popping in.
+        if (document.readyState === 'complete') {
+          svg.classList.add('muppet-loaded');
+        } else {
+          window.addEventListener('load', () => svg.classList.add('muppet-loaded'), { once: true });
+        }
       });
   }
   fetch(SITE_ROOT + 'statuses.md')

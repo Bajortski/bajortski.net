@@ -3,6 +3,22 @@
   <meta charset="en"/>
   <meta name="author" content="Toast Bajortski">
   <title>gallery</title>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // Paint the correct background before the stylesheet arrives, otherwise the
+    // browser's default white canvas flashes on dark palettes. script.js removes
+    // this once the real CSS is active.
+    try {
+      const custom = JSON.parse(localStorage.getItem('customColors') || 'null');
+      let bg = custom && (custom.background || custom.secondary);
+      if (!bg) {
+        const theme = localStorage.getItem('theme');
+        const dark = theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+        bg = dark ? '#000' : '#fff';
+      }
+      document.documentElement.style.backgroundColor = bg;
+    } catch (e) { /* storage unavailable: accept the default canvas */ }
+  </script>
   <link rel="stylesheet" href="stylesheet.css"/>
   <link rel="icon" type="image/x-icon" href="images/muppet-header.svg"/>
   <script src="script.js"></script>
