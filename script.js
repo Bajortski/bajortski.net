@@ -260,6 +260,15 @@ function themeMuppet(svgText) {
   for (const el of svg.querySelectorAll('[fill]')) {
     if (el.getAttribute('fill') !== 'none') el.setAttribute('fill', 'var(--background-color)');
   }
+  // Draw-in animation (keyframes live in stylesheet.css). pathLength="100"
+  // normalizes every shape so a single dash length works; delays stagger the
+  // lines in document order, which matches Illustrator's draw order.
+  const shapes = svg.querySelectorAll('path, polygon, polyline, line, rect, circle, ellipse');
+  shapes.forEach((el, i) => {
+    el.setAttribute('pathLength', '100');
+    el.classList.add('muppet-draw');
+    el.style.animationDelay = `${(i / shapes.length) * 0.6}s`;
+  });
   return svg;
 }
 // Re-trigger a marquee's CSS animation once its width is final, so the translate(-50%) keyframe is resolved against real content rather than an empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).

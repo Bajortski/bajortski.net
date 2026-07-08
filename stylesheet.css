@@ -578,6 +578,25 @@ label input {
   100% { transform: translate(-50%, 0); }
 }
 
+/* Draw-in for the header muppet: script.js sets pathLength="100" on every
+   shape, so one dash length covers them all regardless of true path length. */
+#muppet-header .muppet-draw {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100.5; /* slightly over to avoid a leftover dot at the path start */
+  animation: muppet-draw 1.2s ease-out forwards;
+}
+
+@keyframes muppet-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #muppet-header .muppet-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
 .container {
 	position: relative;
 	display: flex;
