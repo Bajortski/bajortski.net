@@ -588,7 +588,7 @@ label input {
 /* script.js adds .muppet-loaded once the page has fully loaded; until then the
    strokes stay at full offset, i.e. invisible. */
 #muppet-header.muppet-loaded .muppet-draw {
-  animation: muppet-draw .8s ease-out forwards;
+  animation: muppet-draw 3s ease-out forwards;
 }
 
 @keyframes muppet-draw {
