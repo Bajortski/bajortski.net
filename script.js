@@ -269,6 +269,7 @@ function themeMuppet(svgText) {
     el.classList.add('muppet-draw');
   }
   return svg;
+}
 function staggerMuppet(svg) {
   const shapes = [...svg.querySelectorAll('.muppet-draw')];
   const widths = shapes.map(el => parseFloat(getComputedStyle(el).strokeWidth) || 0);
