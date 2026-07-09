@@ -265,15 +265,28 @@ function themeMuppet(svgText) {
     if (el.getAttribute('fill') !== 'none') el.setAttribute('fill', 'var(--background-color)');
   }
   // Draw-in animation (keyframes live in stylesheet.css). pathLength="100"
-  // normalizes every shape so a single dash length works; delays stagger the
-  // lines in document order, which matches Illustrator's draw order.
-  const shapes = svg.querySelectorAll('path, polygon, polyline, line, rect, circle, ellipse');
-  shapes.forEach((el, i) => {
+  // normalizes every shape so a single dash length works. Delays are assigned
+  // in staggerMuppet once the svg is in the live DOM, since stroke widths
+  // resolve through the style element and need getComputedStyle.
+  for (const el of svg.querySelectorAll('path, polygon, polyline, line, rect, circle, ellipse')) {
     el.setAttribute('pathLength', '100');
     el.classList.add('muppet-draw');
-    el.style.animationDelay = `${(i / shapes.length) * 0.6}s`;
-  });
+  }
   return svg;
+}
+// Thick outlines draw first, finer detail lines later. Shapes are grouped by
+// stroke width (descending); each group starts after the last, with a small
+// document-order spread inside the group so it still feels hand-drawn.
+function staggerMuppet(svg) {
+  const shapes = [...svg.querySelectorAll('.muppet-draw')];
+  const widths = shapes.map(el => parseFloat(getComputedStyle(el).strokeWidth) || 0);
+  const groups = [...new Set(widths)].sort((a, b) => b - a);
+  const counts = groups.map(w => widths.filter(x => x === w).length);
+  const seen = groups.map(() => 0);
+  shapes.forEach((el, i) => {
+    const g = groups.indexOf(widths[i]);
+    el.style.animationDelay = `${(g * 0.45 + (seen[g]++ / counts[g]) * 0.3).toFixed(3)}s`;
+  });
 }
 // Re-trigger a marquee's CSS animation once its width is final, so the translate(-50%) keyframe is resolved against real content rather than an empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).
 function restartMarquee(el) {
@@ -283,24 +296,11 @@ function restartMarquee(el) {
   el.style.animation = '';
 }
 document.addEventListener('DOMContentLoaded', () => {
-  const muppetSlot = document.getElementById('muppet-slot');
-  if (muppetSlot) {
-    fetch(SITE_ROOT + 'images/muppet-header.svg')
-      .then(response => response.text())
-      .then(svgText => {
-        const svg = themeMuppet(svgText);
-        if (!svg) return;
-        muppetSlot.replaceChildren(svg);
-        // Hold the draw-in until the page has fully loaded so the muppet
-        // doesn't start (or worse, finish) while everything else is popping in.
-        if (document.readyState === 'complete') {
-          svg.classList.add('muppet-loaded');
-        } else {
-          window.addEventListener('load', () => svg.classList.add('muppet-loaded'), { once: true });
-        }
-      });
-  }
-  fetch(SITE_ROOT + 'statuses.md')
+  const pageLoaded = new Promise(resolve => {
+    if (document.readyState === 'complete') resolve();
+    else window.addEventListener('load', resolve, { once: true });
+  });
+  const marqueeDone = fetch(SITE_ROOT + 'statuses.md')
     .then(response => response.text())
     .then(markdown => {
       const statuses = parseStatuses(markdown);
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.fonts.ready.then(() => restartMarquee(el));
       }
     });
-  fetch(SITE_ROOT + 'version.md')
+  const versionDone = fetch(SITE_ROOT + 'version.md')
     .then(response => response.text())
     .then(version => {
       const versionCell = document.getElementById('version-cell');
@@ -322,4 +322,21 @@ document.addEventListener('DOMContentLoaded', () => {
         versionCell.textContent = version.trim();
       }
     });
+  const muppetSlot = document.getElementById('muppet-slot');
+  if (muppetSlot) {
+    fetch(SITE_ROOT + 'images/muppet-header.svg')
+      .then(response => response.text())
+      .then(svgText => {
+        const svg = themeMuppet(svgText);
+        if (!svg) return;
+        muppetSlot.replaceChildren(svg);
+        staggerMuppet(svg);
+        // Hold the draw-in until the page has fully loaded and the marquee and
+        // version text are in place, so the muppet doesn't start (or worse,
+        // finish) while everything else is still popping in. allSettled: a
+        // failed fetch shouldn't hide the muppet forever.
+        Promise.allSettled([pageLoaded, marqueeDone, versionDone])
+          .then(() => svg.classList.add('muppet-loaded'));
+      });
+  }
 });
