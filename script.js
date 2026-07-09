@@ -264,19 +264,11 @@ function themeMuppet(svgText) {
   for (const el of svg.querySelectorAll('[fill]')) {
     if (el.getAttribute('fill') !== 'none') el.setAttribute('fill', 'var(--background-color)');
   }
-  // Draw-in animation (keyframes live in stylesheet.css). pathLength="100"
-  // normalizes every shape so a single dash length works. Delays are assigned
-  // in staggerMuppet once the svg is in the live DOM, since stroke widths
-  // resolve through the style element and need getComputedStyle.
   for (const el of svg.querySelectorAll('path, polygon, polyline, line, rect, circle, ellipse')) {
     el.setAttribute('pathLength', '100');
     el.classList.add('muppet-draw');
   }
   return svg;
-}
-// Thick outlines draw first, finer detail lines later. Shapes are grouped by
-// stroke width (descending); each group starts after the last, with a small
-// document-order spread inside the group so it still feels hand-drawn.
 function staggerMuppet(svg) {
   const shapes = [...svg.querySelectorAll('.muppet-draw')];
   const widths = shapes.map(el => parseFloat(getComputedStyle(el).strokeWidth) || 0);
@@ -288,11 +280,10 @@ function staggerMuppet(svg) {
     el.style.animationDelay = `${(g * 0.45 + (seen[g]++ / counts[g]) * 0.3).toFixed(3)}s`;
   });
 }
-// Re-trigger a marquee's CSS animation once its width is final, so the translate(-50%) keyframe is resolved against real content rather than an empty/unfonted box (iOS Safari otherwise leaves it frozen until a repaint).
 function restartMarquee(el) {
   if (!el) return;
   el.style.animation = 'none';
-  void el.offsetWidth; // force reflow
+  void el.offsetWidth;
   el.style.animation = '';
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -331,10 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!svg) return;
         muppetSlot.replaceChildren(svg);
         staggerMuppet(svg);
-        // Hold the draw-in until the page has fully loaded and the marquee and
-        // version text are in place, so the muppet doesn't start (or worse,
-        // finish) while everything else is still popping in. allSettled: a
-        // failed fetch shouldn't hide the muppet forever.
         Promise.allSettled([pageLoaded, marqueeDone, versionDone])
           .then(() => svg.classList.add('muppet-loaded'));
       });
