@@ -578,15 +578,11 @@ label input {
   100% { transform: translate(-50%, 0); }
 }
 
-/* Draw-in for the header muppet: script.js sets pathLength="100" on every
-   shape, so one dash length covers them all regardless of true path length. */
 #muppet-header .muppet-draw {
   stroke-dasharray: 100;
   stroke-dashoffset: 100.5; /* slightly over to avoid a leftover dot at the path start */
 }
 
-/* script.js adds .muppet-loaded once the page has fully loaded; until then the
-   strokes stay at full offset, i.e. invisible. */
 #muppet-header.muppet-loaded .muppet-draw {
   animation: muppet-draw .75s ease-out forwards;
 }
