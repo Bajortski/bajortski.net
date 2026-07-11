@@ -79,3 +79,7 @@ Entering grode mode.
 Twenty-eight stab wounds!
 You can shove your distinctions up my through hole.
 Act while you have the urge so you can improve your tomorrow.
+Entering grode mode.
+Your thirst is clouding your judgement.
+No, you're wrong!
+Y-You lying, little brat! Telling turns you into a degenerate male!
