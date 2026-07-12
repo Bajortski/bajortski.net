@@ -584,7 +584,7 @@ label input {
 }
 
 #muppet-header.muppet-loaded .muppet-draw {
-  animation: muppet-draw .75s ease-out forwards;
+  animation: muppet-draw .5s ease-out forwards;
 }
 
 @keyframes muppet-draw {
