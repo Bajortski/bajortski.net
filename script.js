@@ -278,7 +278,7 @@ function staggerMuppet(svg) {
   const seen = groups.map(() => 0);
   shapes.forEach((el, i) => {
     const g = groups.indexOf(widths[i]);
-    el.style.animationDelay = `${(g * 0.2 + (seen[g]++ / counts[g]) * 0.2).toFixed(3)}s`;
+    el.style.animationDelay = `${(g * 0.1 + (seen[g]++ / counts[g]) * 0.1).toFixed(3)}s`;
   });
 }
 function restartMarquee(el) {
