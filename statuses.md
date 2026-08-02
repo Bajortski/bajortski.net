@@ -83,3 +83,4 @@ Entering grode mode.
 Your thirst is clouding your judgement.
 No, you're wrong!
 Y-You lying, little brat! Telling turns you into a degenerate male!
+Yeah, the planet is dying. The government hates us. The animals are leaving. The aliens aren't contacting us. We might be alone. It just might be you and me, but that's okay. Because do you really need anyone else?
