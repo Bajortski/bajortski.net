@@ -78,3 +78,20 @@ Yeah, the planet is dying. The government hates us. The animals are leaving. The
 Oh motherboard, receive my prayer.
 I'd bleed out just to know you, I'd be homeless just to show you.
 What kind of asshole drives a Lotus?
+Thomas the Tank Engine rule 34...
+The game of life has many paths to win.
+When I make something, I go out of my way to make sure it's the least approachable piece of media you'll ever consume. You won't understand any of the references I make and you won't get a citation out of me if it's the last thing I do.
+Video killed the Radio Star
+Knives are far too dangerous. They're like tiny, pointy, bullet-less guns.
+I'm too broke to be an alcoholic!
+I'm too self-conscious when I'm bowling.
+The wizard needs food badly!
+So tell me, have you seen my comb?
+You are lucky! Full moon tonight.
+[TODO: Change script in everything that leverages this list to remove anything in square brackets so I can add attributions.]
+The door resists!
+This dungeon is a pushover.
+It is now safe to turn off your computer.
+All this and more, tonight at 8, 7 central. I'm Dick Likely.
+You can shove your distinctions up my through hole.
+Act while you have the urge so you can improve your tomorrow.
