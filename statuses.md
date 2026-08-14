@@ -95,3 +95,4 @@ It is now safe to turn off your computer.
 All this and more, tonight at 8, 7 central. I'm Dick Likely.
 You can shove your distinctions up my through hole.
 Act while you have the urge so you can improve your tomorrow.
+Compulsion. Besides, I didn't expect to get caught.
