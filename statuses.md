@@ -97,3 +97,7 @@ You can shove your distinctions up my through hole.
 Act while you have the urge so you can improve your tomorrow.
 Compulsion. Besides, I didn't expect to get caught.
 I love you homophobically.
+Well, this is America, where even a horse can dream of living in the White House.
+Depression isn't the flu, it doesn't make everything taste weird.
+In theory, I can do anything. In practice, I will do nothing.
+Blackboard sucks actual fucking dick.
