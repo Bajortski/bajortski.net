@@ -101,3 +101,5 @@ Well, this is America, where even a horse can dream of living in the White House
 Depression isn't the flu, it doesn't make everything taste weird.
 In theory, I can do anything. In practice, I will do nothing.
 Blackboard sucks actual fucking dick.
+I love how much matter you're made of.
+Negging works.
