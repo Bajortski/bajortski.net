@@ -103,3 +103,4 @@ In theory, I can do anything. In practice, I will do nothing.
 Blackboard sucks actual fucking dick.
 I love how much matter you're made of.
 Negging works.
+We're insured, let's burn the house down!
