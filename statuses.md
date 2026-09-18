@@ -110,3 +110,4 @@ The internet is good at creating echo-chambers disguised as safe spaces.
 it wasn't politeness: it was a plea. *Let this momentary kindness be forgotten,* it said. *Don't let it linger, lest it be seen as weakness.*
 What? Oh, now I'm weird because I eat my own semen?
 This warmth is beyond fire!
+It's not about being right, it's about having the moral high ground.
