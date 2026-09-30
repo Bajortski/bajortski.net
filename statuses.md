@@ -111,3 +111,4 @@ it wasn't politeness: it was a plea. *Let this momentary kindness be forgotten,*
 What? Oh, now I'm weird because I eat my own semen?
 This warmth is beyond fire!
 It's not about being right, it's about having the moral high ground.
+Hot dogs don't care about cameras.
