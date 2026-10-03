@@ -112,3 +112,4 @@ What? Oh, now I'm weird because I eat my own semen?
 This warmth is beyond fire!
 It's not about being right, it's about having the moral high ground.
 Hot dogs don't care about cameras.
+Two pizza guys. Four hours. One girl.
