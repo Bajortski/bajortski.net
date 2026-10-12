@@ -113,3 +113,4 @@ This warmth is beyond fire!
 It's not about being right, it's about having the moral high ground.
 Hot dogs don't care about cameras.
 Two pizza guys. Four hours. One girl.
+I don't come down to where you work and slap the dick out of your mouth!
