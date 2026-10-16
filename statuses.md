@@ -117,3 +117,6 @@ I don't come down to where you work and slap the dick out of your mouth!
 I am King Shit of Fuck Mountain! Why would you fuck with me!?
 Being poor sucks!
 You call yourselves junior executives!? You're senior jackasses!
+You'll never walk again!
+Your wife is cheating on you!
+There were no survivors!
