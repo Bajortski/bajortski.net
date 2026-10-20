@@ -120,3 +120,4 @@ You call yourselves junior executives!? You're senior jackasses!
 You'll never walk again!
 Your wife is cheating on you!
 There were no survivors!
+Look me up. Someday I'll be in the obituaries.
