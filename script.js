@@ -328,3 +328,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 });
+
+// Make the gap between My Gear and the footer match the gap between the header
+// and the links heading, which is whatever slack the 100vh header leaves over.
+function matchFooterGap() {
+  const content = document.querySelector('.container .content');
+  const heading = document.getElementById('links-heading');
+  const footer = document.getElementById('footer-marquee');
+  if (!content || !heading || !footer) return;
+  const above = heading.getBoundingClientRect().top - content.getBoundingClientRect().bottom;
+  const gearList = footer.previousElementSibling;
+  const below = footer.getBoundingClientRect().top - gearList.getBoundingClientRect().bottom;
+  const margin = parseFloat(getComputedStyle(footer).marginTop);
+  footer.style.marginTop = `${margin + above - below}px`;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  matchFooterGap();
+  window.addEventListener('resize', matchFooterGap);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(matchFooterGap);
+});
