@@ -630,6 +630,8 @@ label input {
 @media screen and (max-width: 480px), screen and (max-aspect-ratio: 3/4) {
   .duo-list {
     column-count: 1;
+    width: fit-content;
+    margin-inline: auto;
   }
 }
 
