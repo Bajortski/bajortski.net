@@ -149,6 +149,10 @@ body {
     line-height: var(--line-height);
     overflow-wrap: anywhere;
   }
+  .header th, .header td {
+    padding-top: calc(var(--line-height) * 0.75);
+    padding-bottom: calc(var(--line-height) * 0.75);
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -622,6 +626,11 @@ label input {
 .duo-list {
   column-count: 2;
   column-gap: 1.3rem;
+}
+@media screen and (max-width: 480px) {
+  .duo-list {
+    column-count: 1;
+  }
 }
 
 a.inline-links {
