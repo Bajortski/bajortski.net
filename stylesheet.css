@@ -141,8 +141,17 @@ body {
   body {
     padding: var(--line-height) 1ch;
   }
+  #muppet-slot {
+    height: 180px !important; /* overrides the inline desktop height */
+  }
+  #muppet-header {
+    height: 100%;
+  }
+  .header {
+    font-size: 0.875rem;
+  }
   .header .title {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     line-height: var(--line-height);
     overflow-wrap: anywhere;
   }
