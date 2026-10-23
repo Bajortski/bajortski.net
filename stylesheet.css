@@ -627,7 +627,7 @@ label input {
   column-count: 2;
   column-gap: 1.3rem;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px), screen and (max-aspect-ratio: 3/4) {
   .duo-list {
     column-count: 1;
   }
