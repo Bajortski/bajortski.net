@@ -138,9 +138,6 @@ body {
 }
 
 @media screen and (max-width: 480px) {
-  :root {
-    font-size: 20px;
-  }
   body {
     padding: var(--line-height) 1ch;
   }
@@ -148,10 +145,6 @@ body {
     font-size: 1.25rem;
     line-height: var(--line-height);
     overflow-wrap: anywhere;
-  }
-  .header th, .header td {
-    padding-top: calc(var(--line-height) * 0.75);
-    padding-bottom: calc(var(--line-height) * 0.75);
   }
 }
 
