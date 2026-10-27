@@ -313,6 +313,8 @@ async function readSVG(text){
       if(hidden)continue;
       const matrix=inv.multiply(el.getCTM()),style={};
       for(const key of presentation)style[key]=cs.getPropertyValue(key);
+      // Fills are removed on import; shapes left with no stroke would be invisible.
+      style.fill='none';if(style.stroke==='none')continue;
       let opacity=1;for(let e=el;e&&e!==svg.parentNode;e=e.parentElement)opacity*=Number(getComputedStyle(e).opacity);
       style.opacity=String(opacity);
       const transformed=svgpath(shapePath(el)).matrix([matrix.a,matrix.b,matrix.c,matrix.d,matrix.e,matrix.f]);
@@ -326,7 +328,7 @@ async function readSVG(text){
       }
       if(contours.length)raw.push({style,contours});
     }
-    if(!raw.length||!total)throw new Error('No visible vector paths found.');
+    if(!raw.length||!total)throw new Error('No stroked paths found. Fills are removed on import, so fill-only shapes are skipped.');
     const allContours=raw.flatMap(s=>s.contours);
     if(allContours.length>200)throw new Error('Please simplify this SVG to 200 contours or fewer (the DS stroke limit).');
     // Keep the original controller's 500-particle budget, reserving enough
