@@ -22,12 +22,14 @@
   </script>
   <link rel="stylesheet" href="stylesheet.css"/>
   <link rel="icon" type="image/x-icon" href="images/muppet-header.svg"/>
+  <script src="stretch.js"></script>
   <script src="script.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="content">
-      <!-- script.js fetches images/muppet-header.svg and inlines it here so the
+      <!-- script.js fetches images/muppet-header.svg and hands it to stretch.js,
+           which rebuilds it as a draggable DS-style sketch. Inlined so the
            artwork stays CSS-stylable (an <img>-loaded SVG is a separate document
            the page's variables can't reach). Fixed height so the page doesn't
            jump when it arrives. -->

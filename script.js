@@ -318,8 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (muppetSlot) {
     fetch(SITE_ROOT + 'images/muppet-header.svg')
       .then(response => response.text())
-      .then(svgText => {
-        const svg = themeMuppet(svgText);
+      // Stretchy DS-sketch muppet (stretch.js); the static one is the fallback.
+      .then(svgText => (typeof stretchMuppet === 'function'
+        ? stretchMuppet(svgText).catch(() => themeMuppet(svgText))
+        : themeMuppet(svgText)))
+      .then(svg => {
         if (!svg) return;
         muppetSlot.replaceChildren(svg);
         staggerMuppet(svg);
