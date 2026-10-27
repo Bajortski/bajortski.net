@@ -216,7 +216,10 @@ class SoftSVG{
     if(d.releasing){
       if(d.ticks<=5)this.behavior.restore();
       else if(d.node){
-        if(this.groups.length>=2)this.measureAnchorGroup(d.groupIndex,2);
+        // The DS measures against the anchor's home (mode 2), which doubles any
+        // distance the drawing has travelled; here it roams the whole first screen,
+        // so measure against the live anchor (mode 1) and keep the stroke where dropped.
+        if(this.groups.length>=2)this.measureAnchorGroup(d.groupIndex,1);
         const t=ratio(d.ticks,5,300),g=this.groups[d.groupIndex];
         // 020c5fc8 updates consecutive segments only, leaving a closing edge.
         for(let i=1;i<g.nodes.length;i++){
