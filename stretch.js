@@ -151,7 +151,7 @@ const node=p=>({p:[...p],rest:[...p],v:[0,0],f:[0,0],invMass:Q});
 const link=(a,b)=>({a,b,rest:[a.p[0]-b.p[0],a.p[1]-b.p[1]]});
 class SoftSVG{
   constructor(shapes){
-    this.points=[];this.groups=[];this.drag=null;this.offset=[0,0];
+    this.points=[];this.groups=[];this.drag=null;this.offset=[0,0];this.obstacles=[];
     const lo=world(0,191/192*520),hi=world(255/256*800,0);this.bounds=[lo[0],lo[1],hi[0],hi[1]];
     this.anchor=node([0,0]);this.anchor.invMass=410;this.restAnchor=[0,0];
     for(const shape of shapes)for(const contour of shape.contours){
@@ -183,6 +183,16 @@ class SoftSVG{
   measureEdges(saved){for(let i=0;i<this.groups.length;i++)this.measureEdgeGroup(i,saved);}
   scaleTargets(sx,sy){for(const g of this.groups)for(const s of g.anchorLinks)s.rest=[mul(sx,this.restAnchor[0]-s.b.rest[0]),mul(sy,this.restAnchor[1]-s.b.rest[1])];}
   rotateRest(angle){const c=cos(angle),s=sin(angle);for(const g of this.groups)for(const n of g.nodes){const x=n.rest[0]-this.restAnchor[0],y=n.rest[1]-this.restAnchor[1];n.rest=[this.restAnchor[0]+mul(c,x)+mul(s,y),this.restAnchor[1]+mul(-s,x)+mul(c,y)];}}
+  // Web-only: page elements are world-space rects. A point inside one is pushed
+  // out through its nearest edge and bounces, the same response as the bounds.
+  collide(n){
+    for(const r of this.obstacles){
+      if(n.p[0]<=r[0]||n.p[0]>=r[2]||n.p[1]<=r[1]||n.p[1]>=r[3])continue;
+      let axis=0,edge=r[0];
+      for(const [a,e] of [[0,r[2]],[1,r[1]],[1,r[3]]])if(Math.abs(n.p[a]-e)<Math.abs(n.p[axis]-edge)){axis=a;edge=e;}
+      n.p[axis]=edge;n.v[axis]=mul(n.v[axis],-1000);
+    }
+  }
   setEffect(type,active){this.behavior.set(type,active);}
   activity(){this.behavior.activity();}
   set idleEnabled(value){this.behavior.idleEnabled=value;this.behavior.idleFrames=0;this.behavior.idleLabel='';}
@@ -242,6 +252,7 @@ class SoftSVG{
       for(let j=0;j<g.nodes.length;j++){
         spring(g.anchorLinks[j],k[2],k[3]);const n=g.nodes[j];integrate(n);
         for(let axis=0;axis<2;axis++)if(n.p[axis]<this.bounds[axis]||n.p[axis]>this.bounds[axis+2]){n.p[axis]=Math.max(this.bounds[axis],Math.min(this.bounds[axis+2],n.p[axis]));n.v[axis]=mul(n.v[axis],-1000);}
+        this.collide(n);
       }
     }
     this.anchor.p=backup;this.sync();
@@ -339,8 +350,51 @@ async function readSVG(text){
 
 // bajortski.net header: the muppet as a DS sketch.
 // readSVG fits drawings into 570×350 around (400,260) of the controller's
-// 800×520 stage. The viewBox crops to the muppet so it keeps its old size;
-// overflow stays visible so stretches and idle drift can leave that box.
+// 800×520 stage. The viewBox crops to the muppet so it keeps its old size in
+// the slot; overflow is visible, and the bounds are widened to the first
+// screen of the page, so it can be thrown anywhere there.
+const effectKeys={KeyL:'wobble',KeyR:'wobble',KeyX:'inflate',ArrowUp:'inflate',KeyB:'widen',ArrowDown:'widen',KeyA:'twist',ArrowRight:'twist',KeyY:'untwist',ArrowLeft:'untwist'};
+// Elements the muppet bumps into. Boxes use their border; text uses its own
+// extent, so a centred heading isn't a full-width wall.
+const solidBoxes='table, img, iframe, video';
+const solidText='h1, h2, h3, p, li';
+
+function textRect(el){const r=document.createRange();r.selectNodeContents(el);return r.getBoundingClientRect();}
+function pageObstacles(svg){
+  const out=[];
+  for(const el of document.querySelectorAll(`${solidBoxes}, ${solidText}`)){
+    if(svg.contains(el)||el.parentElement.closest(solidBoxes))continue;
+    const r=el.matches(solidBoxes)?el.getBoundingClientRect():textRect(el);
+    if(r.width&&r.height)out.push(r);
+  }
+  return out;
+}
+// Client-pixel rect -> world-space [minX,minY,maxX,maxY], inset by pad (stage units).
+function worldRect(inv,r,pad){
+  const a=new DOMPoint(r.left,r.top).matrixTransform(inv),b=new DOMPoint(r.right,r.bottom).matrixTransform(inv);
+  const lo=world(a.x-pad,b.y+pad),hi=world(b.x+pad,a.y-pad);
+  return [Math.min(lo[0],hi[0]),Math.min(lo[1],hi[1]),Math.max(lo[0],hi[0]),Math.max(lo[1],hi[1])];
+}
+function bindEffectKeys(sim,svg){
+  const held=new Set();
+  const typing=t=>t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable);
+  const inView=()=>{const r=svg.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;};
+  const set=(code,active)=>{
+    if(active===held.has(code))return;
+    if(active)held.add(code);else held.delete(code);
+    const type=effectKeys[code];
+    sim.setEffect(type,Object.keys(effectKeys).some(k=>effectKeys[k]===type&&held.has(k)));
+  };
+  document.addEventListener('keydown',e=>{
+    if(!effectKeys[e.code]||e.metaKey||e.ctrlKey||e.altKey||typing(e.target)||!inView())return;
+    e.preventDefault();set(e.code,true);
+  });
+  document.addEventListener('keyup',e=>{if(held.has(e.code))set(e.code,false);});
+  const releaseAll=()=>{for(const code of[...held])set(code,false);};
+  window.addEventListener('blur',releaseAll);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll();});
+}
+
 async function stretchMuppet(svgText){
   const shapes=await readSVG(svgText);
   // Site theming: strokes take the text colour and fills the background colour,
@@ -353,28 +407,42 @@ async function stretchMuppet(svgText){
   svg.id='muppet-header';
   svg.setAttribute('viewBox',`${minX} ${minY} ${Math.max(...xs)+pad-minX} ${Math.max(...ys)+pad-minY}`);
   svg.setAttribute('height','250');
-  svg.setAttribute('style','display: block; width: 100%; overflow: visible; touch-action: none; cursor: grab;');
+  // The svg box itself ignores the pointer; the drawing and a wide invisible
+  // stroke around it catch grabs wherever it has been thrown.
+  svg.setAttribute('style','display: block; width: 100%; overflow: visible; position: relative; z-index: 1; pointer-events: none; touch-action: none;');
   const paths=shapes.map(s=>{
     const p=document.createElementNS(NS,'path');
     for(const[k,v]of Object.entries(s.style))if(theme[k]&&v!=='none')p.style.setProperty(k,theme[k]);else p.setAttribute(k,v);
     p.setAttribute('pathLength','100');p.classList.add('muppet-draw');
+    p.style.pointerEvents='visiblePainted';p.style.cursor='grab';
     svg.append(p);return p;
   });
-  const render=()=>shapes.forEach((s,i)=>paths[i].setAttribute('d',pathData(s)));
+  const hit=document.createElementNS(NS,'path');
+  hit.setAttribute('style','fill: none; stroke: transparent; stroke-width: 30; stroke-linecap: round; stroke-linejoin: round; pointer-events: stroke; cursor: grab;');
+  svg.append(hit);
+  const render=()=>{shapes.forEach((s,i)=>paths[i].setAttribute('d',pathData(s)));hit.setAttribute('d',shapes.map(pathData).join(' '));};
   render();
+
+  // Page geometry, re-measured every frame (layout, scroll and resizes all move it).
+  function measure(){
+    const inv=svg.getScreenCTM().inverse(),root=document.documentElement;
+    sim.bounds=worldRect(inv,new DOMRect(-scrollX,-scrollY,root.clientWidth,innerHeight),-pad);
+    sim.obstacles=pageObstacles(svg).map(r=>worldRect(inv,r,pad));
+  }
 
   let pointer=null;
   const position=e=>new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM().inverse());
-  const release=e=>{if(e.pointerId!==pointer)return;sim.release();pointer=null;svg.style.cursor='grab';};
+  const release=e=>{if(e.pointerId!==pointer)return;sim.release();pointer=null;document.documentElement.style.removeProperty('cursor');};
   svg.addEventListener('pointerdown',e=>{
     if(e.button!==0||pointer!==null)return;
     const p=position(e);
     if(!sim.grab(p.x,p.y))return;
-    pointer=e.pointerId;svg.setPointerCapture(pointer);svg.style.cursor='grabbing';e.preventDefault();
+    pointer=e.pointerId;svg.setPointerCapture(pointer);document.documentElement.style.cursor='grabbing';e.preventDefault();
   });
-  svg.addEventListener('pointermove',e=>{if(e.pointerId!==pointer)return;const p=position(e);sim.move(Math.max(0,Math.min(800,p.x)),Math.max(0,Math.min(520,p.y)));});
+  svg.addEventListener('pointermove',e=>{if(e.pointerId!==pointer)return;const p=position(e);sim.move(p.x,p.y);});
   svg.addEventListener('pointerup',release);svg.addEventListener('pointercancel',release);svg.addEventListener('lostpointercapture',release);
   for(const type of['pointerdown','keydown'])document.addEventListener(type,()=>sim.activity());
+  bindEffectKeys(sim,svg);
 
   const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
   sim.idleEnabled=!reduceMotion.matches;
@@ -385,6 +453,7 @@ async function stretchMuppet(svgText){
   requestAnimationFrame(function frame(now){
     if(previous)accumulator+=Math.min(now-previous,60);
     previous=now;
+    if(accumulator>=1000/60&&svg.isConnected)measure();
     let ticked=false;
     while(accumulator>=1000/60){sim.tick();accumulator-=1000/60;ticked=true;}
     if(ticked)render();
