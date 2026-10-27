@@ -217,7 +217,7 @@ class SoftSVG{
       if(d.ticks<=5)this.behavior.restore();
       else if(d.node){
         // The DS measures against the anchor's home (mode 2), which doubles any
-        // distance the drawing has travelled; here it roams the whole first screen,
+        // distance the drawing has travelled; here it roams the whole page,
         // so measure against the live anchor (mode 1) and keep the stroke where dropped.
         if(this.groups.length>=2)this.measureAnchorGroup(d.groupIndex,1);
         const t=ratio(d.ticks,5,300),g=this.groups[d.groupIndex];
@@ -356,8 +356,8 @@ async function readSVG(text){
 // bajortski.net header: the muppet as a DS sketch.
 // readSVG fits drawings into 570×350 around (400,260) of the controller's
 // 800×520 stage. The viewBox crops to the muppet so it keeps its old size in
-// the slot; overflow is visible, and the bounds are widened to the first
-// screen of the page, so it can be thrown anywhere there.
+// the slot; overflow is visible, and the bounds are widened to the whole
+// page, so it can be thrown anywhere on it.
 const effectKeys={KeyL:'wobble',KeyR:'wobble',KeyX:'inflate',ArrowUp:'inflate',KeyB:'widen',ArrowDown:'widen',KeyA:'twist',ArrowRight:'twist',KeyY:'untwist',ArrowLeft:'untwist'};
 // Elements the muppet bumps into. Boxes use their border; text uses its own
 // extent, so a centred heading isn't a full-width wall.
@@ -380,10 +380,10 @@ function worldRect(inv,r,pad){
   const lo=world(a.x-pad,b.y+pad),hi=world(b.x+pad,a.y-pad);
   return [Math.min(lo[0],hi[0]),Math.min(lo[1],hi[1]),Math.max(lo[0],hi[0]),Math.max(lo[1],hi[1])];
 }
-function bindEffectKeys(sim,svg){
+function bindEffectKeys(sim,drawing){
   const held=new Set();
   const typing=t=>t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable);
-  const inView=()=>{const r=svg.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;};
+  const inView=()=>{const r=drawing.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;};
   const set=(code,active)=>{
     if(active===held.has(code))return;
     if(active)held.add(code);else held.delete(code);
@@ -431,7 +431,7 @@ async function stretchMuppet(svgText){
   // Page geometry, re-measured every frame (layout, scroll and resizes all move it).
   function measure(){
     const inv=svg.getScreenCTM().inverse(),root=document.documentElement;
-    sim.bounds=worldRect(inv,new DOMRect(-scrollX,-scrollY,root.clientWidth,innerHeight),-pad);
+    sim.bounds=worldRect(inv,new DOMRect(-scrollX,-scrollY,root.scrollWidth,root.scrollHeight),-pad);
     sim.obstacles=pageObstacles(svg).map(r=>worldRect(inv,r,pad));
   }
 
@@ -447,7 +447,7 @@ async function stretchMuppet(svgText){
   svg.addEventListener('pointermove',e=>{if(e.pointerId!==pointer)return;const p=position(e);sim.move(p.x,p.y);});
   svg.addEventListener('pointerup',release);svg.addEventListener('pointercancel',release);svg.addEventListener('lostpointercapture',release);
   for(const type of['pointerdown','keydown'])document.addEventListener(type,()=>sim.activity());
-  bindEffectKeys(sim,svg);
+  bindEffectKeys(sim,hit);
 
   const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
   sim.idleEnabled=!reduceMotion.matches;
