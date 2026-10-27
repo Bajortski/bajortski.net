@@ -138,6 +138,18 @@ class DSEffects{
   tick(){this.menuTicks++;this.schedule();this.manual();this.owner.updateTouch();if(this.held.size||this.owner.drag||this.activityPending)this.idleFrames=0;else this.idleFrames++;this.activityPending=false;this.idleDeform();this.idleMotion();}
 }
 
+// Index of the edge of rect r (minX, minY, maxX, maxY) facing point p: the
+// nearest one p is outside of, or simply the nearest if p is inside.
+function face(r,p){
+  const outside=[0,1,2,3].filter(i=>i<2?p[i]<=r[i]:p[i-2]>=r[i]),pool=outside.length?outside:[0,1,2,3];
+  return pool.reduce((best,i)=>Math.abs(p[i%2]-r[i])<Math.abs(p[best%2]-r[best])?i:best);
+}
+// Pushes n out of rect r through edge i and bounces it.
+function pushOut(n,r,i){
+  if(n.p[0]<=r[0]||n.p[0]>=r[2]||n.p[1]<=r[1]||n.p[1]>=r[3])return;
+  n.p[i%2]=r[i];n.v[i%2]=mul(n.v[i%2],-1000);
+}
+
 // Planar sketch simulation.
 // Source-led planar port of the SM64DS sketch controller. Rendering/input are
 // adapted to SVG; spring math, graph order and effect frames remain Q20.12.
@@ -184,14 +196,18 @@ class SoftSVG{
   scaleTargets(sx,sy){for(const g of this.groups)for(const s of g.anchorLinks)s.rest=[mul(sx,this.restAnchor[0]-s.b.rest[0]),mul(sy,this.restAnchor[1]-s.b.rest[1])];}
   rotateRest(angle){const c=cos(angle),s=sin(angle);for(const g of this.groups)for(const n of g.nodes){const x=n.rest[0]-this.restAnchor[0],y=n.rest[1]-this.restAnchor[1];n.rest=[this.restAnchor[0]+mul(c,x)+mul(s,y),this.restAnchor[1]+mul(-s,x)+mul(c,y)];}}
   // Web-only: page elements are world-space rects. A point inside one is pushed
-  // out through its nearest edge and bounces, the same response as the bounds.
-  collide(n){
-    for(const r of this.obstacles){
-      if(n.p[0]<=r[0]||n.p[0]>=r[2]||n.p[1]<=r[1]||n.p[1]>=r[3])continue;
-      let axis=0,edge=r[0];
-      for(const [a,e] of [[0,r[2]],[1,r[1]],[1,r[3]]])if(Math.abs(n.p[a]-e)<Math.abs(n.p[axis]-edge)){axis=a;edge=e;}
-      n.p[axis]=edge;n.v[axis]=mul(n.v[axis],-1000);
-    }
+  // out and bounces, the same response as the bounds. Every point leaves an
+  // element through the one face the anchor is on: per-point nearest edges let
+  // neighbours pop out opposite sides and wrap the element in chords.
+  collide(n){this.obstacles.forEach((r,i)=>pushOut(n,r,this.faces[i]));}
+  // A dropped (or idly thrown) anchor overlapping an element would pin the
+  // drawing into it, so it moves out through that face until the whole rest
+  // pose clears the element.
+  clearAnchor(){
+    const nodes=this.groups.flatMap(g=>g.nodes),a=this.restAnchor;
+    const lo=[0,1].map(i=>a[i]-Math.min(...nodes.map(n=>n.rest[i]))),hi=[0,1].map(i=>Math.max(...nodes.map(n=>n.rest[i]))-a[i]);
+    this.faces=this.obstacles.map(r=>face(r,this.anchor.p));
+    if(!this.drag)this.obstacles.forEach((r,i)=>pushOut(this.anchor,[r[0]-hi[0],r[1]-hi[1],r[2]+lo[0],r[3]+lo[1]],this.faces[i]));
   }
   setEffect(type,active){this.behavior.set(type,active);}
   activity(){this.behavior.activity();}
@@ -248,6 +264,7 @@ class SoftSVG{
   sync(){for(const g of this.groups)for(const n of g.nodes){const [x,y]=screen(n.p);Object.assign(n.output,{x,y,vx:n.v[0]*96/focal*800/256,vy:-n.v[1]*96/focal*520/192,held:this.drag?.node===n});}}
   tick(){
     this.behavior.tick();
+    this.clearAnchor();
     const k=dsSpringCoefficients[this.behavior.springSet],backup=[...this.anchor.p];
     this.anchor.p=[backup[0]+this.offset[0],backup[1]+this.offset[1]];this.anchor.f=[0,0];
     for(let i=0;i<this.groups.length;i++){
