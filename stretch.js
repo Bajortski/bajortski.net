@@ -149,6 +149,18 @@ function pushOut(n,r,i){
   if(n.p[0]<=r[0]||n.p[0]>=r[2]||n.p[1]<=r[1]||n.p[1]>=r[3])return;
   n.p[i%2]=r[i];n.v[i%2]=mul(n.v[i%2],-1000);
 }
+// Nearest point to p inside box and outside every rect, at most max away; null
+// if p is already clear or nothing qualifies. Candidates are p's own axes and
+// every rect edge, crossed, which covers single-edge pushes and corner pockets.
+function freeSpot(p,rects,box,max){
+  const clear=(x,y)=>rects.every(r=>x<=r[0]||x>=r[2]||y<=r[1]||y>=r[3]);
+  if(clear(p[0],p[1]))return null;
+  const xs=[p[0],...rects.flatMap(r=>[r[0],r[2]])].filter(x=>x>=box[0]&&x<=box[2]&&Math.abs(x-p[0])<=max);
+  const ys=[p[1],...rects.flatMap(r=>[r[1],r[3]])].filter(y=>y>=box[1]&&y<=box[3]&&Math.abs(y-p[1])<=max);
+  const spots=xs.flatMap(x=>ys.map(y=>[x,y,Math.hypot(x-p[0],y-p[1])])).filter(s=>s[2]<=max).sort((a,b)=>a[2]-b[2]);
+  const best=spots.find(([x,y])=>clear(x,y));
+  return best?[best[0],best[1]]:null;
+}
 
 // Planar sketch simulation.
 // Source-led planar port of the SM64DS sketch controller. Rendering/input are
@@ -201,13 +213,21 @@ class SoftSVG{
   // neighbours pop out opposite sides and wrap the element in chords.
   collide(n){this.obstacles.forEach((r,i)=>pushOut(n,r,this.faces[i]));}
   // A dropped (or idly thrown) anchor overlapping an element would pin the
-  // drawing into it, so it moves out through that face until the whole rest
-  // pose clears the element.
+  // drawing into it, so it moves once, to the nearest spot within a drawing's
+  // size where the whole rest pose clears every element; failing that, the
+  // anchor just steps out of the element it's in and the strokes bump the
+  // rest. Clearing every frame (or pushing out of each element in turn)
+  // chained through the stacked link lists and flung it across the page.
   clearAnchor(){
-    const nodes=this.groups.flatMap(g=>g.nodes),a=this.restAnchor;
-    const lo=[0,1].map(i=>a[i]-Math.min(...nodes.map(n=>n.rest[i]))),hi=[0,1].map(i=>Math.max(...nodes.map(n=>n.rest[i]))-a[i]);
+    if(!this.drag&&this.anchor.p.join()!==this.settled){
+      const nodes=this.groups.flatMap(g=>g.nodes),a=this.restAnchor;
+      const lo=[0,1].map(i=>a[i]-Math.min(...nodes.map(n=>n.rest[i]))),hi=[0,1].map(i=>Math.max(...nodes.map(n=>n.rest[i]))-a[i]);
+      const rects=this.obstacles.map(r=>[r[0]-hi[0],r[1]-hi[1],r[2]+lo[0],r[3]+lo[1]]),b=this.bounds,size=Math.min(lo[0]+hi[0],lo[1]+hi[1]);
+      const spot=freeSpot(this.anchor.p,rects,[b[0]+lo[0],b[1]+lo[1],b[2]-hi[0],b[3]-hi[1]],size)||freeSpot(this.anchor.p,this.obstacles,b,size);
+      if(spot)this.anchor.p=spot;
+      this.settled=this.anchor.p.join();
+    }
     this.faces=this.obstacles.map(r=>face(r,this.anchor.p));
-    if(!this.drag)this.obstacles.forEach((r,i)=>pushOut(this.anchor,[r[0]-hi[0],r[1]-hi[1],r[2]+lo[0],r[3]+lo[1]],this.faces[i]));
   }
   setEffect(type,active){this.behavior.set(type,active);}
   activity(){this.behavior.activity();}
