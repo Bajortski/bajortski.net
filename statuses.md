@@ -122,3 +122,4 @@ Your wife is cheating on you!
 There were no survivors!
 Look me up. Someday I'll be in the obituaries.
 Zero flavour, zero fun.
+You got the shape, I got the flavour.
