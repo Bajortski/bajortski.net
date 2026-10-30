@@ -161,6 +161,12 @@ function freeSpot(p,rects,box,max){
   const best=spots.find(([x,y])=>clear(x,y));
   return best?[best[0],best[1]]:null;
 }
+// Furthest any of points would be pushed to reach the face of its rect.
+function caught(points,rects,faces){
+  let worst=0;
+  for(const p of points)rects.forEach((r,i)=>{if(p[0]>r[0]&&p[0]<r[2]&&p[1]>r[1]&&p[1]<r[3])worst=Math.max(worst,Math.abs(p[faces[i]%2]-r[faces[i]]));});
+  return worst;
+}
 
 // Planar sketch simulation.
 // Source-led planar port of the SM64DS sketch controller. Rendering/input are
@@ -212,22 +218,26 @@ class SoftSVG{
   // element through the one face the anchor is on: per-point nearest edges let
   // neighbours pop out opposite sides and wrap the element in chords.
   collide(n){this.obstacles.forEach((r,i)=>pushOut(n,r,this.faces[i]));}
-  // A dropped (or idly thrown) anchor overlapping an element would pin the
-  // drawing into it, so it moves once, to the nearest spot within a drawing's
-  // size where the whole rest pose clears every element; failing that, the
-  // anchor just steps out of the element it's in and the strokes bump the
-  // rest. Clearing every frame (or pushing out of each element in turn)
-  // chained through the stacked link lists and flung it across the page.
+  // A dropped (or idly thrown) drawing overlapping elements just bumps them:
+  // strokes leave each element through the face the anchor is on. Only when
+  // that would drag some stroke more than half the drawing's size from its
+  // rest pose does the anchor move, once, to the nearest spot within a
+  // drawing's size where the whole pose clears every element; failing that,
+  // it steps out of the element it's in. Clearing every frame (or pushing out
+  // of each element in turn) chained through the stacked link lists and flung
+  // it across the page.
   clearAnchor(){
-    if(!this.drag&&this.anchor.p.join()!==this.settled){
-      const nodes=this.groups.flatMap(g=>g.nodes),a=this.restAnchor;
-      const lo=[0,1].map(i=>a[i]-Math.min(...nodes.map(n=>n.rest[i]))),hi=[0,1].map(i=>Math.max(...nodes.map(n=>n.rest[i]))-a[i]);
-      const rects=this.obstacles.map(r=>[r[0]-hi[0],r[1]-hi[1],r[2]+lo[0],r[3]+lo[1]]),b=this.bounds,size=Math.min(lo[0]+hi[0],lo[1]+hi[1]);
-      const spot=freeSpot(this.anchor.p,rects,[b[0]+lo[0],b[1]+lo[1],b[2]-hi[0],b[3]-hi[1]],size)||freeSpot(this.anchor.p,this.obstacles,b,size);
-      if(spot)this.anchor.p=spot;
-      this.settled=this.anchor.p.join();
-    }
     this.faces=this.obstacles.map(r=>face(r,this.anchor.p));
+    if(this.drag||this.anchor.p.join()===this.settled)return;
+    const nodes=this.groups.flatMap(g=>g.nodes),a=this.restAnchor,p=this.anchor.p;
+    const lo=[0,1].map(i=>a[i]-Math.min(...nodes.map(n=>n.rest[i]))),hi=[0,1].map(i=>Math.max(...nodes.map(n=>n.rest[i]))-a[i]);
+    const b=this.bounds,size=Math.min(lo[0]+hi[0],lo[1]+hi[1]);
+    if(caught(nodes.map(n=>[p[0]+n.rest[0]-a[0],p[1]+n.rest[1]-a[1]]),this.obstacles,this.faces)>size/2){
+      const rects=this.obstacles.map(r=>[r[0]-hi[0],r[1]-hi[1],r[2]+lo[0],r[3]+lo[1]]);
+      const spot=freeSpot(p,rects,[b[0]+lo[0],b[1]+lo[1],b[2]-hi[0],b[3]-hi[1]],size)||freeSpot(p,this.obstacles,b,size);
+      if(spot){this.anchor.p=spot;this.faces=this.obstacles.map(r=>face(r,spot));}
+    }
+    this.settled=this.anchor.p.join();
   }
   setEffect(type,active){this.behavior.set(type,active);}
   activity(){this.behavior.activity();}
