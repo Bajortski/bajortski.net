@@ -54,7 +54,6 @@
       color: var(--text-color);
       font-family: "Maple Mono", monospace;
       overflow: hidden;
-      cursor: none;
     }
     a { color: inherit; }
 
@@ -96,20 +95,10 @@
     }
 
     .digits {
-      display: flex; align-items: center; justify-content: center;
-      gap: .02em;
       font-weight: 100;
       font-size: clamp(6rem, 30vw, 17rem);
       line-height: .9;
     }
-    .digits span { display: inline-block; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
-    .eye {
-      width: .62em; height: .62em;
-      overflow: visible;
-    }
-    .eye .lid { transform-origin: 50% 50%; transform-box: fill-box; }
-    .eye.wink .lid { animation: wink .45s ease-in-out; }
-    @keyframes wink { 0%, 100% { transform: scaleY(1); } 45%, 60% { transform: scaleY(.06); } }
 
     .line {
       margin-top: 1.6rem;
@@ -124,23 +113,8 @@
       max-width: 100%; overflow-wrap: anywhere;
     }
 
-    /* The cursor: a small ring that swells over things worth touching. */
-    .cursor {
-      position: fixed; left: 0; top: 0; z-index: 2;
-      width: 14px; height: 14px; margin: -7px 0 0 -7px;
-      border: 1.5px solid var(--text-color); border-radius: 50%;
-      pointer-events: none;
-      mix-blend-mode: difference;
-    }
-
-    @media (hover: none) {
-      body { cursor: auto; }
-      .cursor { display: none; }
-    }
     @media (prefers-reduced-motion: reduce) {
       .caret { animation: none; }
-      .eye.wink .lid { animation: none; }
-      .digits span { transition: none; }
     }
   </style>
 </head>
@@ -150,22 +124,10 @@
   <div class="halo" aria-hidden="true"></div>
 
   <main>
-    <h1 class="digits" aria-label="404">
-      <span>4</span>
-      <svg class="eye" viewBox="-60 -60 120 120" aria-hidden="true">
-        <g class="lid">
-          <circle r="52" fill="none" stroke="currentColor" stroke-width="2.2"/>
-          <circle class="iris" r="19" fill="none" stroke="currentColor" stroke-width="2.2"/>
-          <circle class="pupil" r="8" fill="currentColor"/>
-        </g>
-      </svg>
-      <span>4</span>
-    </h1>
+    <h1 class="digits">404</h1>
     <p class="line"><span id="typed"></span><span class="caret"></span></p>
     <p class="path" id="path"></p>
   </main>
-
-  <div class="cursor" aria-hidden="true"></div>
 
   <script>
     const root = document.documentElement;
@@ -178,8 +140,7 @@
       "and honestly? you look great tonight.",
       "nobody comes down here.",
       "it's just us and the dark.",
-      "you can stay a while. or—",
-      "let me walk you home.",
+      "you can stay a while.",
     ];
     // The wallpaper is the site's own statuses (the homepage marquee's source),
     // shuffled. Escaped, then *x* becomes italics.
@@ -249,10 +210,8 @@
     const light = { x: target.x, y: target.y };
     let lastMove = -1e9;
 
-    let cursorEl;
     function onPoint(x, y) {
       target.x = x; target.y = y; lastMove = performance.now();
-      cursorEl.style.transform = `translate(${x}px, ${y}px)`;
     }
     addEventListener('pointermove', e => onPoint(e.clientX, e.clientY));
     addEventListener('pointerdown', e => onPoint(e.clientX, e.clientY));
@@ -264,39 +223,6 @@
       target.y = innerHeight * (0.5 + 0.34 * Math.sin(s * 0.23 + 1.3));
     }
 
-    cursorEl = document.querySelector('.cursor');
-
-    // ---------- eye + leaning digits ----------
-    const eye = document.querySelector('.eye');
-    const iris = eye.querySelector('.iris');
-    const pupil = eye.querySelector('.pupil');
-    const [four1, four2] = document.querySelectorAll('.digits span');
-
-    function aimEye() {
-      const b = eye.getBoundingClientRect();
-      const cx = b.left + b.width / 2, cy = b.top + b.height / 2;
-      const dx = light.x - cx, dy = light.y - cy;
-      const d = Math.hypot(dx, dy) || 1;
-      const reach = Math.min(1, d / 300) * 26;
-      const px = (dx / d) * reach, py = (dy / d) * reach;
-      iris.setAttribute('transform', `translate(${px} ${py})`);
-      pupil.setAttribute('transform', `translate(${px * 1.1} ${py * 1.1})`);
-      // The fours lean in toward the light, just a little.
-      const lean = Math.max(-1, Math.min(1, dx / innerWidth)) * 9;
-      four1.style.transform = `skewX(${-lean}deg) translateX(${lean * 0.6}px)`;
-      four2.style.transform = `skewX(${-lean}deg) translateX(${lean * 0.6}px)`;
-    }
-
-    function wink() {
-      eye.classList.remove('wink');
-      void eye.getBoundingClientRect();
-      eye.classList.add('wink');
-    }
-    function scheduleWink() {
-      if (reduced) return;
-      setTimeout(() => { wink(); scheduleWink(); }, 3500 + Math.random() * 6000);
-    }
-
     function frame(t) {
       if (t - lastMove > 4000 && !reduced) drift(t);
       const k = t - lastMove < 4000 ? 0.22 : 0.035;
@@ -304,14 +230,12 @@
       light.y += (target.y - light.y) * k;
       root.style.setProperty('--x', light.x + 'px');
       root.style.setProperty('--y', light.y + 'px');
-      aimEye();
       requestAnimationFrame(frame);
     }
 
     loadWhispers();
     addEventListener('resize', fillWhispers);
     runLines();
-    scheduleWink();
     requestAnimationFrame(frame);
   </script>
 </body>
