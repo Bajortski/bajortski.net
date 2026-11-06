@@ -155,7 +155,7 @@
       document.querySelectorAll('.whispers').forEach(el => { el.innerHTML = html; });
     }
 
-    document.getElementById('path').textContent = location.pathname + " doesn't exist";
+    document.getElementById('path').textContent = location.href + " doesn't exist";
 
     // ---------- pointer / light ----------
     const target = { x: innerWidth / 2, y: innerHeight / 2 };
