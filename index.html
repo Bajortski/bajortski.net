@@ -6,9 +6,6 @@
   <title>bajortski.net</title>
   <meta name="color-scheme" content="light dark">
   <script>
-    // Paint the correct background before the stylesheet arrives, otherwise the
-    // browser's default white canvas flashes on dark palettes. script.js removes
-    // this once the real CSS is active.
     try {
       const custom = JSON.parse(localStorage.getItem('customColors') || 'null');
       let bg = custom && (custom.background || custom.secondary);

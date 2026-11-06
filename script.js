@@ -1,17 +1,10 @@
-// Relative paths in JS-set hrefs and fetches resolve against the page's own
-// directory, so pages in subfolders (blog/) need a prefix back to the root.
 const SITE_ROOT = location.pathname.includes('/blog/') ? '../' : '';
 
-// Theme: follows system unless overridden via the "t" keybind or by setting custom colours
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light' || savedTheme === 'dark') {
   document.documentElement.dataset.theme = savedTheme;
 }
-// The inline head script painted a placeholder background so the canvas isn't
-// white while the stylesheet downloads. This script runs after that stylesheet
-// (blocking scripts wait for earlier CSS), so the palette takes over from here.
 document.documentElement.style.removeProperty('background-color');
-// hex parsing only accepts #rrggbb
 function normalizeHex(c) {
   c = c.trim();
   return /^#[0-9a-fA-F]{3}$/.test(c)
@@ -44,9 +37,7 @@ function hslToHex(h, s, l) {
   };
   return '#' + f(0) + f(8) + f(4);
 }
-// Custom colours: picked via the "colours" button, stored in localStorage, applied as inline styles on <html> so they beat both theme palettes.
-// Alt shades are derived from the two picked colours with the same ratios
-// as the stock palettes (#666/#aaa and #eee/#111).
+
 function applyColors(colors) {
   const s = document.documentElement.style;
   if (!colors) {
@@ -62,7 +53,6 @@ function applyColors(colors) {
   s.setProperty('--background-color-alt', `color-mix(in srgb, ${colors.background} 93%, ${colors.foreground})`);
 }
 let savedColors = JSON.parse(localStorage.getItem('customColors') || 'null');
-// migrate palettes saved under older key names
 if (savedColors && (savedColors.primary || savedColors.text)) {
   savedColors = {
     foreground: savedColors.primary || savedColors.text,
@@ -86,7 +76,6 @@ document.addEventListener('keydown', e => {
   const current = root.dataset.theme || (systemDark ? 'dark' : 'light');
   const next = current === 'dark' ? 'light' : 'dark';
   if ((next === 'dark') === systemDark) {
-    // toggled back to what the system wants: drop the override
     delete root.dataset.theme;
     localStorage.removeItem('theme');
   } else {
@@ -96,7 +85,6 @@ document.addEventListener('keydown', e => {
   clearColors();
 });
 
-// Shared page header
 const SITE_HEADER = `<table class="header">
   <tr>
     <td colspan="5" rowspan="1" class="width-auto">
@@ -114,7 +102,6 @@ const SITE_HEADER = `<table class="header">
   </tr>
 </table>`;
 
-// Header injection + colour picker UI.
 document.addEventListener('DOMContentLoaded', () => {
   const placeholder = document.getElementById('site-header');
   if (placeholder) {
@@ -150,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const colours = {};
   let selected = 'foreground';
 
-  // slider tracks preview each channel around the current colour
   function paintTracks() {
     const h = +hEl.value, s = +sEl.value, l = +lEl.value;
     const hues = [0, 60, 120, 180, 240, 300, 360]
@@ -167,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       b.setAttribute('aria-pressed', b.dataset.colour === selected);
     });
   }
-  // load colours[selected] into the sliders and hex field
+
   function loadSelected() {
     const { h, s, l } = hexToHsl(colours[selected]);
     hEl.value = h; sEl.value = s; lEl.value = l;
@@ -175,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     paintTracks();
     paintSwatches();
   }
-  // pull the live palette off the page (stock theme or saved custom colours)
+
   function syncFromPage() {
     const style = getComputedStyle(document.documentElement);
     colours.foreground = normalizeHex(style.getPropertyValue('--text-color'));
@@ -232,13 +218,7 @@ function parseStatuses(markdown) {
     [array[i], array[j]] = [array[j], array[i]];
   }
 }
-// The header muppet lives in images/muppet-header.svg so it can be re-exported
-// from Illustrator without touching the HTML. It's fetched and inlined (an
-// <img>-loaded SVG is a separate document that page CSS variables can't
-// reach), then themed: strokes take the text colour, fills the background
-// colour, and every selector is scoped to the svg since inline SVG styles are
-// document-global. Handles both Illustrator export modes (internal CSS and
-// presentation attributes), so a fresh export works unmodified.
+
 function themeMuppet(svgText) {
   const doc = new DOMParser().parseFromString(svgText, 'image/svg+xml');
   if (doc.querySelector('parsererror')) return null;
@@ -255,7 +235,6 @@ function themeMuppet(svgText) {
       .replace(/fill:(?!\s*none)[^;}]+/g, 'fill: var(--background-color)')
       .replace(/(^|\})([^{}]+)\{/g, (_, close, sel) =>
         close + sel.split(',').map(s => '#muppet-header ' + s.trim()).join(', ') + ' {') +
-      // unclassed shapes default to a black fill; they occlude lines behind them
       '\n#muppet-header path, #muppet-header polygon { fill: var(--background-color); }';
   }
   for (const el of svg.querySelectorAll('[stroke]')) {
@@ -318,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (muppetSlot) {
     fetch(SITE_ROOT + 'images/muppet-header.svg')
       .then(response => response.text())
-      // Stretchy DS-sketch muppet (stretch.js); the static one is the fallback.
       .then(svgText => (typeof stretchMuppet === 'function'
         ? stretchMuppet(svgText).catch(() => themeMuppet(svgText))
         : themeMuppet(svgText)))
@@ -332,8 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Make the gap between My Gear and the footer match the gap between the header
-// and the links heading, which is whatever slack the 100vh header leaves over.
 function matchFooterGap() {
   const content = document.querySelector('.container .content');
   const heading = document.getElementById('links-heading');
