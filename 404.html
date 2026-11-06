@@ -72,13 +72,6 @@
     }
     .whispers em { font-style: italic; }
 
-    /* A faint disc so the light reads as light, not just a hole in the mask. */
-    .halo {
-      position: fixed; inset: 0; pointer-events: none;
-      background: radial-gradient(circle var(--r) at var(--x) var(--y),
-        color-mix(in srgb, var(--text-color) 7%, transparent) calc(100% - 1px), transparent 100%);
-    }
-
     main {
       position: relative; z-index: 1;
       height: 100%;
@@ -109,7 +102,6 @@
 <body>
   <div class="whispers dim" aria-hidden="true"></div>
   <div class="whispers lit" aria-hidden="true"></div>
-  <div class="halo" aria-hidden="true"></div>
 
   <main>
     <h1 class="digits">404</h1>
