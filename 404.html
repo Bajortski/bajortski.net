@@ -199,19 +199,38 @@
       "you can stay a while. or—",
       "let me walk you home.",
     ];
-    const WHISPERS = [
-      "you weren't supposed to find this", "<em>come closer</em>", "nothing here but us",
-      "a little lost, are we", "don't tell anyone", "<em>keep looking</em>",
-      "the link was broken but you're not", "lower the lights", "404 ways to say hello",
-      "<em>mmhm</em>", "i like where your cursor's been", "wrong turn, right person",
-      "it's warmer over here", "<em>slower</em>", "status code: smitten",
-    ];
+    // The wallpaper is the site's own statuses (the homepage marquee's source),
+    // shuffled. Escaped, then *x* becomes italics.
+    let whispers = [];
+    const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const md = t => esc(t).replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    async function loadWhispers() {
+      try {
+        const text = await (await fetch('/statuses.md')).text();
+        whispers = shuffle(text.split('\n').map(l => l.trim()).filter(Boolean).map(md));
+      } catch (e) { whispers = []; }
+      fillWhispers();
+    }
 
     function fillWhispers() {
-      const words = [];
-      const n = Math.ceil((innerWidth * innerHeight) / 900);
-      for (let i = 0; i < n; i++) words.push(WHISPERS[(i * 7 + (i >> 3)) % WHISPERS.length]);
-      const html = words.join(' · ');
+      if (!whispers.length) return;
+      const target = (innerWidth + 64) * (innerHeight + 64) / 85; // ~chars to cover the screen
+      const parts = [];
+      for (let i = 0, len = 0; len < target; i++) {
+        const w = whispers[i % whispers.length];
+        parts.push(w);
+        len += w.length + 3;
+      }
+      const html = parts.join(' · ');
       document.querySelectorAll('.whispers').forEach(el => { el.innerHTML = html; });
     }
 
@@ -311,7 +330,7 @@
       requestAnimationFrame(frame);
     }
 
-    fillWhispers();
+    loadWhispers();
     addEventListener('resize', fillWhispers);
     runLines();
     scheduleWink();
