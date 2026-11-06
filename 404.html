@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="author" content="Bajortski">
+  <title>404 · bajortski.net</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/images/muppet-header.svg"/>
+  <script>
+    // Same theme/colour sources as the rest of the site (script.js), inlined
+    // because this page is served at arbitrary depths and needs nothing else.
+    try {
+      const root = document.documentElement;
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
+      const c = JSON.parse(localStorage.getItem('customColors') || 'null');
+      if (c && c.foreground && c.background) {
+        root.style.setProperty('--text-color', c.foreground);
+        root.style.setProperty('--background-color', c.background);
+      }
+    } catch (e) { /* storage unavailable: stock palette */ }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Maple Mono'; font-style: normal; font-display: swap; font-weight: 100;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-100-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Maple Mono'; font-style: normal; font-display: swap; font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Maple Mono'; font-style: italic; font-display: swap; font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-italic.woff2) format('woff2');
+    }
+
+    :root {
+      --text-color: #000;
+      --background-color: #fff;
+      --x: 50vw;
+      --y: 50vh;
+      --r: 190px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --text-color: #fff; --background-color: #000; }
+    }
+    :root[data-theme="dark"] { --text-color: #fff; --background-color: #000; }
+
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--background-color);
+      color: var(--text-color);
+      font-family: "Maple Mono", monospace;
+      overflow: hidden;
+      cursor: none;
+    }
+    a { color: inherit; }
+
+    /* Whispers wallpaper: barely there everywhere, legible under the light. */
+    .whispers {
+      position: fixed; inset: -2rem;
+      font-size: 13px; line-height: 1.9; letter-spacing: .04em;
+      text-align: justify; word-spacing: .6em;
+      pointer-events: none; user-select: none;
+      overflow: hidden;
+    }
+    .whispers.dim { opacity: .045; }
+    .whispers.lit {
+      -webkit-mask-image: radial-gradient(circle var(--r) at calc(var(--x) + 2rem) calc(var(--y) + 2rem), #000 0%, rgba(0,0,0,.5) 45%, transparent 100%);
+              mask-image: radial-gradient(circle var(--r) at calc(var(--x) + 2rem) calc(var(--y) + 2rem), #000 0%, rgba(0,0,0,.5) 45%, transparent 100%);
+    }
+    .whispers em { font-style: italic; }
+
+    /* A faint halo so the light reads as light, not just a hole in the mask. */
+    .halo {
+      position: fixed; inset: 0; pointer-events: none;
+      background: radial-gradient(circle calc(var(--r) * 1.1) at var(--x) var(--y),
+        color-mix(in srgb, var(--text-color) 7%, transparent), transparent 70%);
+    }
+
+    main {
+      position: relative; z-index: 1;
+      height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 0 16px; text-align: center;
+      pointer-events: none;
+    }
+    main a, main button { pointer-events: auto; }
+    main::before {
+      content: ""; position: absolute; z-index: -1;
+      left: 50%; top: 50%; width: min(150vw, 1100px); height: min(110vh, 760px);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, var(--background-color) 55%, transparent);
+    }
+
+    .digits {
+      display: flex; align-items: center; justify-content: center;
+      gap: .02em;
+      font-weight: 100;
+      font-size: clamp(6rem, 30vw, 17rem);
+      line-height: .9;
+    }
+    .digits span { display: inline-block; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
+    .eye {
+      width: .62em; height: .62em;
+      overflow: visible;
+    }
+    .eye .lid { transform-origin: 50% 50%; transform-box: fill-box; }
+    .eye.wink .lid { animation: wink .45s ease-in-out; }
+    @keyframes wink { 0%, 100% { transform: scaleY(1); } 45%, 60% { transform: scaleY(.06); } }
+
+    .line {
+      margin-top: 1.6rem;
+      font-size: clamp(14px, 2.2vw, 18px);
+      min-height: 1.6em;
+    }
+    .caret { display: inline-block; width: .55em; border-bottom: 1px solid currentColor; animation: blink 1.1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .path {
+      margin-top: .8rem; font-size: 12px; opacity: .55;
+      max-width: 100%; overflow-wrap: anywhere;
+    }
+    .home {
+      margin-top: 2.2rem;
+      display: inline-block;
+      border: 2px solid currentColor;
+      padding: .7em 1.4em;
+      text-decoration: none;
+      font-size: 14px;
+      background: var(--background-color);
+      letter-spacing: .08em;
+      transition: background .25s, color .25s;
+      cursor: none;
+    }
+    .home:hover, .home:focus-visible {
+      background: var(--text-color); color: var(--background-color); outline: none;
+    }
+
+    /* The cursor: a small ring that swells over things worth touching. */
+    .cursor {
+      position: fixed; left: 0; top: 0; z-index: 2;
+      width: 14px; height: 14px; margin: -7px 0 0 -7px;
+      border: 1.5px solid var(--text-color); border-radius: 50%;
+      pointer-events: none;
+      transition: width .25s, height .25s, margin .25s, background .25s;
+      mix-blend-mode: difference;
+    }
+    .cursor.big { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+
+    @media (hover: none) {
+      body, .home { cursor: auto; }
+      .cursor { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .caret { animation: none; }
+      .eye.wink .lid { animation: none; }
+      .digits span { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="whispers dim" aria-hidden="true"></div>
+  <div class="whispers lit" aria-hidden="true"></div>
+  <div class="halo" aria-hidden="true"></div>
+
+  <main>
+    <h1 class="digits" aria-label="404">
+      <span>4</span>
+      <svg class="eye" viewBox="-60 -60 120 120" aria-hidden="true">
+        <g class="lid">
+          <circle r="52" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          <circle class="iris" r="19" fill="none" stroke="currentColor" stroke-width="2.2"/>
+          <circle class="pupil" r="8" fill="currentColor"/>
+        </g>
+      </svg>
+      <span>4</span>
+    </h1>
+    <p class="line"><span id="typed"></span><span class="caret"></span></p>
+    <p class="path" id="path"></p>
+    <a class="home" href="/">take me home</a>
+  </main>
+
+  <div class="cursor" aria-hidden="true"></div>
+
+  <script>
+    const root = document.documentElement;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- copy ----------
+    const LINES = [
+      "this page doesn't exist.",
+      "but you do.",
+      "and honestly? you look great tonight.",
+      "nobody comes down here.",
+      "it's just us and the dark.",
+      "you can stay a while. or—",
+      "let me walk you home.",
+    ];
+    const WHISPERS = [
+      "you weren't supposed to find this", "<em>come closer</em>", "nothing here but us",
+      "a little lost, are we", "don't tell anyone", "<em>keep looking</em>",
+      "the link was broken but you're not", "lower the lights", "404 ways to say hello",
+      "<em>mmhm</em>", "i like where your cursor's been", "wrong turn, right person",
+      "it's warmer over here", "<em>slower</em>", "status code: smitten",
+    ];
+
+    function fillWhispers() {
+      const words = [];
+      const n = Math.ceil((innerWidth * innerHeight) / 900);
+      for (let i = 0; i < n; i++) words.push(WHISPERS[(i * 7 + (i >> 3)) % WHISPERS.length]);
+      const html = words.join(' · ');
+      document.querySelectorAll('.whispers').forEach(el => { el.innerHTML = html; });
+    }
+
+    document.getElementById('path').textContent = location.pathname + ' — not here';
+
+    // ---------- typewriter ----------
+    const typed = document.getElementById('typed');
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    async function typeOut(text) {
+      for (let i = 1; i <= text.length; i++) {
+        typed.textContent = text.slice(0, i);
+        await sleep(38 + Math.random() * 55);
+      }
+    }
+    async function eraseBack() {
+      while (typed.textContent.length) {
+        typed.textContent = typed.textContent.slice(0, -1);
+        await sleep(18);
+      }
+    }
+    async function runLines() {
+      if (reduced) { typed.textContent = LINES[0] + ' ' + LINES[1]; return; }
+      for (let i = 0; ; i = (i + 1) % LINES.length) {
+        await typeOut(LINES[i]);
+        await sleep(i === LINES.length - 1 ? 4200 : 1900);
+        await eraseBack();
+        await sleep(350);
+      }
+    }
+
+    // ---------- pointer / light ----------
+    const target = { x: innerWidth / 2, y: innerHeight / 2 };
+    const light = { x: target.x, y: target.y };
+    let lastMove = -1e9;
+
+    let cursorEl;
+    function onPoint(x, y) {
+      target.x = x; target.y = y; lastMove = performance.now();
+      cursorEl.style.transform = `translate(${x}px, ${y}px)`;
+    }
+    addEventListener('pointermove', e => onPoint(e.clientX, e.clientY));
+    addEventListener('pointerdown', e => onPoint(e.clientX, e.clientY));
+
+    // With no pointer around (phones, idle), the light wanders on its own.
+    function drift(t) {
+      const s = t / 1000;
+      target.x = innerWidth  * (0.5 + 0.36 * Math.sin(s * 0.31) * Math.cos(s * 0.13));
+      target.y = innerHeight * (0.5 + 0.34 * Math.sin(s * 0.23 + 1.3));
+    }
+
+    cursorEl = document.querySelector('.cursor');
+    const home = document.querySelector('.home');
+    home.addEventListener('pointerenter', () => cursorEl.classList.add('big'));
+    home.addEventListener('pointerleave', () => cursorEl.classList.remove('big'));
+
+    // ---------- eye + leaning digits ----------
+    const eye = document.querySelector('.eye');
+    const iris = eye.querySelector('.iris');
+    const pupil = eye.querySelector('.pupil');
+    const [four1, four2] = document.querySelectorAll('.digits span');
+
+    function aimEye() {
+      const b = eye.getBoundingClientRect();
+      const cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+      const dx = light.x - cx, dy = light.y - cy;
+      const d = Math.hypot(dx, dy) || 1;
+      const reach = Math.min(1, d / 300) * 26;
+      const px = (dx / d) * reach, py = (dy / d) * reach;
+      iris.setAttribute('transform', `translate(${px} ${py})`);
+      pupil.setAttribute('transform', `translate(${px * 1.1} ${py * 1.1})`);
+      // The fours lean in toward the light, just a little.
+      const lean = Math.max(-1, Math.min(1, dx / innerWidth)) * 9;
+      four1.style.transform = `skewX(${-lean}deg) translateX(${lean * 0.6}px)`;
+      four2.style.transform = `skewX(${-lean}deg) translateX(${lean * 0.6}px)`;
+    }
+
+    function wink() {
+      eye.classList.remove('wink');
+      void eye.getBoundingClientRect();
+      eye.classList.add('wink');
+    }
+    function scheduleWink() {
+      if (reduced) return;
+      setTimeout(() => { wink(); scheduleWink(); }, 3500 + Math.random() * 6000);
+    }
+    home.addEventListener('pointerenter', wink);
+
+    function frame(t) {
+      if (t - lastMove > 4000 && !reduced) drift(t);
+      const k = t - lastMove < 4000 ? 0.22 : 0.035;
+      light.x += (target.x - light.x) * k;
+      light.y += (target.y - light.y) * k;
+      root.style.setProperty('--x', light.x + 'px');
+      root.style.setProperty('--y', light.y + 'px');
+      aimEye();
+      requestAnimationFrame(frame);
+    }
+
+    fillWhispers();
+    addEventListener('resize', fillWhispers);
+    runLines();
+    scheduleWink();
+    requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
