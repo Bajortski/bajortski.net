@@ -123,21 +123,6 @@
       margin-top: .8rem; font-size: 12px; opacity: .55;
       max-width: 100%; overflow-wrap: anywhere;
     }
-    .home {
-      margin-top: 2.2rem;
-      display: inline-block;
-      border: 2px solid currentColor;
-      padding: .7em 1.4em;
-      text-decoration: none;
-      font-size: 14px;
-      background: var(--background-color);
-      letter-spacing: .08em;
-      transition: background .25s, color .25s;
-      cursor: none;
-    }
-    .home:hover, .home:focus-visible {
-      background: var(--text-color); color: var(--background-color); outline: none;
-    }
 
     /* The cursor: a small ring that swells over things worth touching. */
     .cursor {
@@ -145,13 +130,11 @@
       width: 14px; height: 14px; margin: -7px 0 0 -7px;
       border: 1.5px solid var(--text-color); border-radius: 50%;
       pointer-events: none;
-      transition: width .25s, height .25s, margin .25s, background .25s;
       mix-blend-mode: difference;
     }
-    .cursor.big { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
 
     @media (hover: none) {
-      body, .home { cursor: auto; }
+      body { cursor: auto; }
       .cursor { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -180,7 +163,6 @@
     </h1>
     <p class="line"><span id="typed"></span><span class="caret"></span></p>
     <p class="path" id="path"></p>
-    <a class="home" href="/">take me home</a>
   </main>
 
   <div class="cursor" aria-hidden="true"></div>
@@ -283,9 +265,6 @@
     }
 
     cursorEl = document.querySelector('.cursor');
-    const home = document.querySelector('.home');
-    home.addEventListener('pointerenter', () => cursorEl.classList.add('big'));
-    home.addEventListener('pointerleave', () => cursorEl.classList.remove('big'));
 
     // ---------- eye + leaning digits ----------
     const eye = document.querySelector('.eye');
@@ -317,7 +296,6 @@
       if (reduced) return;
       setTimeout(() => { wink(); scheduleWink(); }, 3500 + Math.random() * 6000);
     }
-    home.addEventListener('pointerenter', wink);
 
     function frame(t) {
       if (t - lastMove > 4000 && !reduced) drift(t);
