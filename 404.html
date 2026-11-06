@@ -8,8 +8,6 @@
   <meta name="color-scheme" content="light dark">
   <link rel="icon" type="image/svg+xml" href="/images/muppet-header.svg"/>
   <script>
-    // Same theme/colour sources as the rest of the site (script.js), inlined
-    // because this page is served at arbitrary depths and needs nothing else.
     try {
       const root = document.documentElement;
       const theme = localStorage.getItem('theme');
@@ -57,7 +55,6 @@
     }
     a { color: inherit; }
 
-    /* Whispers wallpaper: barely there everywhere, legible under the light. */
     .whispers {
       position: fixed; inset: -2rem;
       font-size: 13px; line-height: 1.9; letter-spacing: .04em;
@@ -112,8 +109,6 @@
     const root = document.documentElement;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // The wallpaper is the site's own statuses (the homepage marquee's source),
-    // shuffled. Escaped, then *x* becomes italics.
     let whispers = [];
     const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
     const md = t => esc(t).replace(/\*([^*]+)\*/g, '<em>$1</em>');
@@ -149,7 +144,6 @@
 
     document.getElementById('path').textContent = location.href + " doesn't exist";
 
-    // ---------- pointer / light ----------
     const target = { x: innerWidth / 2, y: innerHeight / 2 };
     const light = { x: target.x, y: target.y };
     let lastMove = -1e9;
@@ -160,7 +154,6 @@
     addEventListener('pointermove', e => onPoint(e.clientX, e.clientY));
     addEventListener('pointerdown', e => onPoint(e.clientX, e.clientY));
 
-    // With no pointer around (phones, idle), the light wanders on its own.
     function drift(t) {
       const s = t / 1000;
       target.x = innerWidth  * (0.5 + 0.36 * Math.sin(s * 0.31) * Math.cos(s * 0.13));
