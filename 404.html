@@ -131,7 +131,7 @@
 
     function fillWhispers() {
       if (!whispers.length) return;
-      const target = (innerWidth + 64) * (innerHeight + 64) / 85; // ~chars to cover the screen
+      const target = (innerWidth + 64) * (innerHeight + 64) / 85;
       const parts = [];
       for (let i = 0, len = 0; len < target; i++) {
         const w = whispers[i % whispers.length];
@@ -142,7 +142,7 @@
       document.querySelectorAll('.whispers').forEach(el => { el.innerHTML = html; });
     }
 
-    document.getElementById('path').textContent = location.href + " doesn't exist";
+    document.getElementById('path').textContent = location.href + " does not exist";
 
     const target = { x: innerWidth / 2, y: innerHeight / 2 };
     const light = { x: target.x, y: target.y };
