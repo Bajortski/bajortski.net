@@ -127,3 +127,5 @@ THE FOLLOWING RESTRICTED PREVIEW HAS BEEN APPROVED FOR APPROPRIATE AUDIENCES BY 
 Noted internet douchebag.
 Dan Harmon is an asshole. But at least he has medical issues to explain why he is this way.
 What's your movement, Bob?
+I'm not angry. I'm *excited*!
+There's no such thing as taboo on the net. 2 ez.
