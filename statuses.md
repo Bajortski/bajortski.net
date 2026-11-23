@@ -129,3 +129,6 @@ Dan Harmon is an asshole. But at least he has medical issues to explain why he i
 What's your movement, Bob?
 I'm not angry. I'm *excited*!
 There's no such thing as taboo on the net. 2 ez.
+I'm not a fuck up. I'm gonna shit everywhere!
+Music is everyone's bitch I can fuck it how I want to.
+"If it makes me feel things, then it must be a good poem!" And what did it make you feel? "Like I wanted it to be over!"
